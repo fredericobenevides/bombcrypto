@@ -1,0 +1,3 @@
+{:paths ["src"]
+ :tasks
+ {run (shell "bb -m bombcrypto.main")}}
