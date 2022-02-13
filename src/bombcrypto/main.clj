@@ -1,7 +1,6 @@
 (ns bombcrypto.main
   (:require [bombcrypto.browser :as browser]
-            [bombcrypto.heroes :as heroes]
-            [bombcrypto.mouse :as mouse]))
+            [bombcrypto.screen :as screen]))
 
 (def legendary-stay-home (atom false))
 
@@ -9,39 +8,32 @@
   (let [time-format (java.time.format.DateTimeFormatter/ofPattern "dd/MM/yyyy hh:mm:ss")]
     (.format time-format (java.time.LocalDateTime/now))))
 
-(defn go-main-menu [id]
-  (mouse/move-to-and-click id 120 125)
-  (Thread/sleep 1000))
-
-(defn go-to-treasure-hunt [id]
-  (mouse/move-to-and-click id 420 325))
-
 (defn all-super-heroes-go-home [browser-index id]
   (when (= browser-index 1)
     (println "All super heroes is going home")
-    (heroes/open-popup id)
+    (screen/open-heroes-popup id)
 
-    (heroes/click-to-rest-all id)
-    
-    (heroes/go-to-the-hero id 2)
-    (heroes/go-home id 2)
-    (heroes/go-home id 2)
-    (heroes/go-home id 3)
+    (screen/run-all-heroes id)
 
-    (heroes/scroll-to-next-page)
-    (heroes/scroll-to-next-page)
+    (screen/hero-go-home id 2)
+    (screen/hero-go-home id 2)
+    (screen/hero-go-home id 3)
 
-    (heroes/go-home id 2)))
+    (screen/next-page-of-heroes)
+    (screen/next-page-of-heroes)
+
+    (screen/hero-go-home id 2)
+
+    (screen/close-heroes-popup id)))
 
 (defn only-legendary-go-home [browser-index id]
   (when (= browser-index 1)
     (println "Only legendary is going home")
-    (heroes/go-to-the-hero id 1)
 
-    (heroes/scroll-to-next-page)
-    (heroes/scroll-to-next-page)
+    (screen/next-page-of-heroes)
+    (screen/next-page-of-heroes)
 
-    (heroes/go-home id 5)))
+    (screen/hero-go-home id 5)))
 
 (defn run-on-each-browser []
   (while true
@@ -49,15 +41,15 @@
 
     (doseq [[index id] (browser/load-ids)]
       (println "Running for id" id (current-time))
-      (heroes/open-popup id)
-      (heroes/click-to-run-all id)
+      (screen/open-heroes-popup id)
+      (screen/run-all-heroes id)
 
       ;; after activating all heroes, only the legendary
       ;; goes home if need to stay in home
       (when @legendary-stay-home
         (only-legendary-go-home index id))
 
-      (heroes/close-popup id))
+      (screen/close-heroes-popup id))
 
     ;; after running the heroes, keep going to menu
     ;; and treasure hunt for each 110 minutes
@@ -73,8 +65,8 @@
             (all-super-heroes-go-home index id))
 
           (println times " times. Going to the menu for id" id (current-time))
-          (go-main-menu id)
-          (go-to-treasure-hunt id))))
+          (screen/go-main-menu id)
+          (screen/go-treasure-hunt id))))
 
     ;; for each iteration it will enable or disable home
     (reset! legendary-stay-home (not @legendary-stay-home))
