@@ -1,12 +1,9 @@
 (ns bombcrypto.main
   (:require [bombcrypto.browser :as browser]
-            [bombcrypto.screen :as screen]))
+            [bombcrypto.screen :as screen]
+            [bombcrypto.time :as time]))
 
 (def legendary-stay-home (atom false))
-
-(defn current-time []
-  (let [time-format (java.time.format.DateTimeFormatter/ofPattern "dd/MM/yyyy hh:mm:ss")]
-    (.format time-format (java.time.LocalDateTime/now))))
 
 (defn all-super-heroes-go-home [browser-index id]
   (when (= browser-index 1)
@@ -40,7 +37,7 @@
     (println "\nStarting to run bombcrypto")
 
     (doseq [[index id] (browser/load-ids)]
-      (println "Running for id" id (current-time))
+      (println "Running for id" id (time/current-time))
       (screen/open-heroes-popup id)
       (screen/run-all-heroes id)
 
@@ -55,7 +52,7 @@
     ;; and treasure hunt for each 110 minutes
     (dotimes [n 22]
       (let [times (inc n)]
-        (println times "times. Waiting for 5 minutes before going to the menu" (current-time))
+        (println times "times. Waiting for 5 minutes before going to the menu" (time/current-time))
         (Thread/sleep (* 1000 60 5))
 
         (doseq [[index id] (browser/load-ids)]
@@ -64,7 +61,7 @@
             (println "All super heroes goes home")
             (all-super-heroes-go-home index id))
 
-          (println times " times. Going to the menu for id" id (current-time))
+          (println times " times. Going to the menu for id" id (time/current-time))
           (screen/go-main-menu id)
           (screen/go-treasure-hunt id))))
 
