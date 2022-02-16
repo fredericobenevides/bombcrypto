@@ -25,18 +25,15 @@
 
 (defn heroes2-start-some [id]
   (println "2 - Starting some heroes and making others to rest")
-
   (screen/open-heroes-popup id)
   (screen/run-all-heroes id)
-
   (screen/hero-go-home id 1)
   (screen/hero-go-home id 2)
   (screen/hero-go-home id 2)
-
   (screen/next-page-of-heroes)
   (screen/next-page-of-heroes)
-
-  (screen/hero-go-home id 2))
+  (screen/hero-go-home id 2)
+  (screen/close-heroes-popup id))
 
 (defn heroes2-start [cycle]
   (let [id (nth browser-ids 1)
@@ -47,45 +44,103 @@
 
 (defn heroes2-rest [n-time]
   (let [id (nth browser-ids 1)]
-    (println "2 - Heroes going home")
     (when (= n-time 8)
+      (println "2 - Time to rest/go home" n-time)
       (heroes2-start-some id))))
+
+(defn heroes3-start-some [id]
+  (println "3 - Starting some heroes and making others to rest")
+  (screen/open-heroes-popup id)
+  (screen/run-all-heroes id)
+  (screen/next-page-of-heroes)
+  (screen/hero-go-rest id 2)
+  (screen/next-page-of-heroes)
+  (screen/hero-go-rest id 1)
+  (screen/close-heroes-popup id))
 
 (defn heroes3-start [cycle]
   (let [id (nth browser-ids 2)
         iteration (cycle->iteration cycle 1)]
     (cond
       (= iteration 0) (open-popup-and-run-heroes 3 id)
-      ;; (= iteration 1)
-      ;; (heroes3-start-some id)
-      )))
+      (= iteration 1) (heroes3-start-some id))))
+
+(defn heroes3-rest [n-time]
+  (let [id (nth browser-ids 2)]
+    (when (= n-time 8)
+      (println "3 - Time to rest/go home" n-time)
+      (heroes3-start-some id))))
+
+(defn heroes4-start-some [id]
+  (println "4 - Starting some heroes and making others to rest")
+  (screen/open-heroes-popup id)
+  (screen/run-all-heroes id)
+  (screen/hero-go-rest id 3)
+  (screen/hero-go-rest id 5)
+  (screen/next-page-of-heroes)
+  (screen/hero-go-rest id 4)
+  (screen/next-page-of-heroes)
+  (screen/hero-go-rest id 3)
+  (screen/hero-go-rest id 4)
+  (screen/close-heroes-popup id))
 
 (defn heroes4-start [cycle]
   (let [id (nth browser-ids 3)
         iteration (cycle->iteration cycle 1)]
     (cond
       (= iteration 0) (open-popup-and-run-heroes 4 id)
-      ;; (= iteration 1)
-      ;; (heroes3-start-some id)
-      )))
+      (= iteration 1) (heroes4-start-some id))))
+
+(defn heroes4-rest [n-time]
+  (let [id (nth browser-ids 1)]
+    (when (= n-time 8)
+      (println "4 - Time to rest/go home" n-time)
+      (heroes4-start-some id))))
+
+(defn heroes5-start-some [id]
+  (println "5 - Starting some heroes and making others to rest")
+  (screen/open-heroes-popup id)
+  (screen/run-all-heroes id)
+  (screen/next-page-of-heroes)
+  (screen/hero-go-rest id 4)
+  (screen/close-heroes-popup id))
 
 (defn heroes5-start [cycle]
   (let [id (nth browser-ids 4)
         iteration (cycle->iteration cycle 1)]
     (cond
       (= iteration 0) (open-popup-and-run-heroes 5 id)
-      ;; (= iteration 1)
-      ;; (heroes3-start-some id)
-      )))
+      (= iteration 1) (heroes5-start-some id))))
+
+(defn heroes5-rest [n-time]
+  (let [id (nth browser-ids 1)]
+    (when (= n-time 8)
+      (println "5 - Time to rest/go home" n-time)
+      (heroes5-start-some id))))
+
+(defn heroes6-start-some [id]
+  (println "6 - Starting some heroes and making others to rest")
+  (screen/open-heroes-popup id)
+  (screen/run-all-heroes id)
+  (screen/hero-go-rest id 1)
+  (screen/next-page-of-heroes)
+  (screen/hero-go-rest id 1)
+  (screen/next-page-of-heroes)
+  (screen/hero-go-rest id 5)
+  (screen/close-heroes-popup id))
 
 (defn heroes6-start [cycle]
   (let [id (nth browser-ids 5)
         iteration (cycle->iteration cycle 1)]
     (cond
       (= iteration 0) (open-popup-and-run-heroes 6 id)
-      ;; (= iteration 1)
-      ;; (heroes3-start-some id)
-      )))
+      (= iteration 1) (heroes3-start-some id))))
+
+(defn heroes6-rest [n-time]
+  (let [id (nth browser-ids 1)]
+    (when (= n-time 8)
+      (println "6 - Time to rest/go home" n-time)
+      (heroes6-start-some id))))
 
 (defn start-all-heroes [cycle]
   (heroes1-start cycle)
@@ -102,7 +157,11 @@
     (screen/close-heroes-popup id)))
 
 (defn rest-heroes [n-time]
-  (heroes2-rest [n-time]))
+  (heroes2-rest n-time)
+  (heroes3-rest n-time)
+  (heroes4-rest n-time)
+  (heroes5-rest n-time)
+  (heroes6-rest n-time))
 
 
 
