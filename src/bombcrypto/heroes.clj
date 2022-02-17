@@ -99,9 +99,8 @@
   (screen/hero-go-rest id 4)
   (screen/next-page-of-heroes)
   (screen/hero-go-rest id 2)
-  (screen/next-page-of-heroes)
-  (screen/hero-go-rest id 1)
-  (screen/hero-go-rest id 1)
+  (screen/hero-go-rest id 5)
+    (screen/hero-go-rest id 5)
 
   (when (not start)
     (screen/rest-all-heroes id))
