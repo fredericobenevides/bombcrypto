@@ -4,6 +4,8 @@
 
 (def browser-ids (browser/load-ids))
 
+(def n-time-to-stop 6)
+
 (defn- cycle->iteration [cycle iteration]
   (mod cycle iteration))
 
@@ -15,6 +17,7 @@
 
 (defn open-popup-and-run-heroes [hero-id browser-id]
   (println hero-id "- Starting all heroes for the browser of id" browser-id)
+
   (screen/open-heroes-popup browser-id)
   (screen/run-all-heroes browser-id)
   (screen/close-heroes-popup browser-id))
@@ -31,7 +34,7 @@
 
 (defn heroes1-rest [n-time]
   (let [id (nth browser-ids 0)]
-    (when (= n-time 8)
+    (when (= n-time n-time-to-stop)
       (println "1 - Time to rest/go home" n-time)
       (open-popup-and-rest-heroes 1 id))))
 
@@ -60,7 +63,7 @@
 
 (defn heroes2-rest [n-time]
   (let [id (nth browser-ids 1)]
-    (when (= n-time 8)
+    (when (= n-time n-time-to-stop)
       (println "2 - Time to rest/go home" n-time)
       (heroes2-start-or-stop id false))))
 
@@ -70,8 +73,7 @@
   (screen/run-all-heroes id)
   (screen/next-page-of-heroes)
   (screen/hero-go-rest id 2)
-  (screen/next-page-of-heroes)
-  (screen/hero-go-rest id 1)
+  (screen/hero-go-rest id 5)
 
   (when (not start)
     (screen/rest-all-heroes id))
@@ -87,7 +89,7 @@
 
 (defn heroes3-rest [n-time]
   (let [id (nth browser-ids 2)]
-    (when (= n-time 8)
+    (when (= n-time n-time-to-stop)
       (println "3 - Time to rest/go home" n-time)
       (heroes3-start-or-stop id false))))
 
@@ -116,7 +118,7 @@
 
 (defn heroes4-rest [n-time]
   (let [id (nth browser-ids 3)]
-    (when (= n-time 8)
+    (when (= n-time n-time-to-stop)
       (println "4 - Time to rest/go home" n-time)
       (heroes4-start-or-stop id false))))
 
@@ -141,7 +143,7 @@
 
 (defn heroes5-rest [n-time]
   (let [id (nth browser-ids 4)]
-    (when (= n-time 8)
+    (when (= n-time n-time-to-stop)
       (println "5 - Time to rest/go home" n-time)
       (heroes5-start-or-stop id false))))
 
@@ -169,7 +171,7 @@
 
 (defn heroes6-rest [n-time]
   (let [id (nth browser-ids 5)]
-    (when (= n-time 8)
+    (when (= n-time n-time-to-stop)
       (println "6 - Time to rest/go home" n-time)
       (heroes6-start-or-stop id false))))
 

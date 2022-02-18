@@ -6,11 +6,11 @@
 
 (defn run []
   (while true
-    (println "\nStarting to run bombcrypto. Cycle:" @count-cycle (time/now-with-format))
+    (println "\n**** Starting to run bombcrypto. Cycle:" @count-cycle (time/now-with-format))
 
     (heroes/start-all-heroes @count-cycle)
 
-    (dotimes [n 22]
+    (dotimes [n 20]
       (println "Waiting for 5 minutes before going to the menu. n is" n (time/now-with-format))
       (Thread/sleep (* 1000 60 5))
       (println "Finished waiting." (time/now-with-format))
