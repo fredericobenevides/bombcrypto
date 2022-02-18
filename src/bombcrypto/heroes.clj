@@ -29,45 +29,46 @@
   (screen/close-heroes-popup browser-id))
 
 (defn heroes1-start [_]
-  (let [id (nth browser-ids 0)]
-    (open-popup-and-run-heroes 1 id)))
+  (let [browser-id (nth browser-ids 0)]
+    (open-popup-and-run-heroes 1 browser-id)))
 
-(defn heroes1-rest [n-time]
-  (let [id (nth browser-ids 0)]
+(defn heroes1-is-time-to-rest? [n-time]
+  (let [browser-id (nth browser-ids 0)]
     (when (= n-time n-time-to-stop)
       (println "1 - Time to rest/go home" n-time)
-      (open-popup-and-rest-heroes 1 id))))
+      (open-popup-and-rest-heroes 1 browser-id))))
 
-(defn heroes2-start-or-stop [id start]
+(defn heroes2-start-iteration-1 [browser-id start]
   (println "2 - Starting some heroes and making others to rest")
-  (screen/open-heroes-popup id)
-  (screen/run-all-heroes id)
-  (screen/hero-go-home id 1)
-  (screen/hero-go-home id 2)
-  (screen/hero-go-home id 2)
+  (screen/open-heroes-popup browser-id)
+  (screen/run-all-heroes browser-id)
+  (screen/hero-go-home browser-id 1)
+  (screen/hero-go-home browser-id 2)
+  (screen/hero-go-home browser-id 2)
   (screen/next-page-of-heroes)
   (screen/next-page-of-heroes)
-  (screen/hero-go-home id 2)
+  (screen/hero-go-home browser-id 2)
 
   (when (not start)
-    (screen/rest-all-heroes id))
+    (screen/rest-all-heroes browser-id))
 
-  (screen/close-heroes-popup id))
+  (screen/close-heroes-popup browser-id))
 
 (defn heroes2-start [cycle]
-  (let [id (nth browser-ids 1)
-        iteration (cycle->iteration cycle 2)]
+  (let [browser-id (nth browser-ids 1)
+        total-iterations 2
+        iteration (cycle->iteration cycle total-iterations)]
     (cond
-      (= iteration 0) (open-popup-and-run-heroes 2 id)
-      (= iteration 1) (heroes2-start-or-stop id true))))
+      (= iteration 0) (open-popup-and-run-heroes 2 browser-id)
+      (= iteration 1) (heroes2-start-iteration-1 browser-id true))))
 
-(defn heroes2-rest [n-time]
-  (let [id (nth browser-ids 1)]
+(defn heroes2-is-time-to-rest? [n-time]
+  (let [browser-id (nth browser-ids 1)]
     (when (= n-time n-time-to-stop)
       (println "2 - Time to rest/go home" n-time)
-      (heroes2-start-or-stop id false))))
+      (heroes2-start-iteration-1 browser-id false))))
 
-(defn heroes3-start-or-stop [id start]
+(defn heroes3-start-iteration-1 [id start]
   (println "3 - Starting some heroes and making others to rest")
   (screen/open-heroes-popup id)
   (screen/run-all-heroes id)
@@ -81,19 +82,20 @@
   (screen/close-heroes-popup id))
 
 (defn heroes3-start [cycle]
-  (let [id (nth browser-ids 2)
-        iteration (cycle->iteration cycle 2)]
+  (let [browser-id (nth browser-ids 2)
+        total-iterations 2
+        iteration (cycle->iteration cycle total-iterations)]
     (cond
-      (= iteration 0) (open-popup-and-run-heroes 3 id)
-      (= iteration 1) (heroes3-start-or-stop id true))))
+      (= iteration 0) (open-popup-and-run-heroes 3 browser-id)
+      (= iteration 1) (heroes3-start-iteration-1 browser-id true))))
 
-(defn heroes3-rest [n-time]
-  (let [id (nth browser-ids 2)]
+(defn heroes3-is-time-to-rest? [n-time]
+  (let [browser-id (nth browser-ids 2)]
     (when (= n-time n-time-to-stop)
       (println "3 - Time to rest/go home" n-time)
-      (heroes3-start-or-stop id false))))
+      (heroes3-start-iteration-1 browser-id false))))
 
-(defn heroes4-start-or-stop [id start]
+(defn heroes4-start-iteration-1 [id start]
   (println "4 - Starting some heroes and making others to rest")
   (screen/open-heroes-popup id)
   (screen/run-all-heroes id)
@@ -110,19 +112,20 @@
   (screen/close-heroes-popup id))
 
 (defn heroes4-start [cycle]
-  (let [id (nth browser-ids 3)
-        iteration (cycle->iteration cycle 2)]
+  (let [browser-id (nth browser-ids 3)
+        total-iterations 2
+        iteration (cycle->iteration cycle total-iterations)]
     (cond
-      (= iteration 0) (open-popup-and-run-heroes 4 id)
-      (= iteration 1) (heroes4-start-or-stop id true))))
+      (= iteration 0) (open-popup-and-run-heroes 4 browser-id)
+      (= iteration 1) (heroes4-start-iteration-1 browser-id true))))
 
-(defn heroes4-rest [n-time]
-  (let [id (nth browser-ids 3)]
+(defn heroes4-is-time-to-rest? [n-time]
+  (let [browser-id (nth browser-ids 3)]
     (when (= n-time n-time-to-stop)
       (println "4 - Time to rest/go home" n-time)
-      (heroes4-start-or-stop id false))))
+      (heroes4-start-iteration-1 browser-id false))))
 
-(defn heroes5-start-or-stop [id start]
+(defn heroes5-start-iteration-1 [id start]
   (println "5 - Starting some heroes and making others to rest")
   (screen/open-heroes-popup id)
   (screen/run-all-heroes id)
@@ -135,19 +138,20 @@
   (screen/close-heroes-popup id))
 
 (defn heroes5-start [cycle]
-  (let [id (nth browser-ids 4)
-        iteration (cycle->iteration cycle 2)]
+  (let [browser-id (nth browser-ids 4)
+        total-iterations 2
+        iteration (cycle->iteration cycle total-iterations)]
     (cond
-      (= iteration 0) (open-popup-and-run-heroes 5 id)
-      (= iteration 1) (heroes5-start-or-stop id true))))
+      (= iteration 0) (open-popup-and-run-heroes 5 browser-id)
+      (= iteration 1) (heroes5-start-iteration-1 browser-id true))))
 
-(defn heroes5-rest [n-time]
-  (let [id (nth browser-ids 4)]
+(defn heroes5-is-time-to-rest? [n-time]
+  (let [browser-id (nth browser-ids 4)]
     (when (= n-time n-time-to-stop)
       (println "5 - Time to rest/go home" n-time)
-      (heroes5-start-or-stop id false))))
+      (heroes5-start-iteration-1 browser-id false))))
 
-(defn heroes6-start-or-stop [id start]
+(defn heroes6-start-iteration-1 [id start]
   (println "6 - Starting some heroes and making others to rest")
   (screen/open-heroes-popup id)
   (screen/run-all-heroes id)
@@ -163,17 +167,18 @@
   (screen/close-heroes-popup id))
 
 (defn heroes6-start [cycle]
-  (let [id (nth browser-ids 5)
-        iteration (cycle->iteration cycle 2)]
+  (let [browser-id (nth browser-ids 5)
+        total-iterations 2
+        iteration (cycle->iteration cycle total-iterations)]
     (cond
-      (= iteration 0) (open-popup-and-run-heroes 6 id)
-      (= iteration 1) (heroes3-start-or-stop id true))))
+      (= iteration 0) (open-popup-and-run-heroes 6 browser-id)
+      (= iteration 1) (heroes3-start-iteration-1 browser-id true))))
 
-(defn heroes6-rest [n-time]
-  (let [id (nth browser-ids 5)]
+(defn heroes6-is-time-to-rest? [n-time]
+  (let [browser-id (nth browser-ids 5)]
     (when (= n-time n-time-to-stop)
       (println "6 - Time to rest/go home" n-time)
-      (heroes6-start-or-stop id false))))
+      (heroes6-start-iteration-1 browser-id false))))
 
 (defn start-all-heroes [cycle]
   (heroes1-start cycle)
@@ -184,18 +189,18 @@
   (heroes6-start cycle))
 
 (defn stop-all-heroes []
-  (doseq [id browser-ids]
-    (screen/open-heroes-popup id)
-    (screen/rest-all-heroes id)
-    (screen/close-heroes-popup id)))
+  (doseq [browser-id browser-ids]
+    (screen/open-heroes-popup browser-id)
+    (screen/rest-all-heroes browser-id)
+    (screen/close-heroes-popup browser-id)))
 
-(defn rest-heroes [n-time]
-  (heroes1-rest n-time)
-  (heroes2-rest n-time)
-  (heroes3-rest n-time)
-  (heroes4-rest n-time)
-  (heroes5-rest n-time)
-  (heroes6-rest n-time))
+(defn is-time-to-rest? [n-time]
+  (heroes1-is-time-to-rest? n-time)
+  (heroes2-is-time-to-rest? n-time)
+  (heroes3-is-time-to-rest? n-time)
+  (heroes4-is-time-to-rest? n-time)
+  (heroes5-is-time-to-rest? n-time)
+  (heroes6-is-time-to-rest? n-time))
 
 
 

@@ -2,20 +2,20 @@
   (:require [bombcrypto.heroes :as heroes]
             [bombcrypto.time :as time]))
 
-(def count-cycle (atom 0))
+(def current-cycle (atom 1))
 
 (defn run []
   (while true
-    (println "\n**** Starting to run bombcrypto. Cycle:" @count-cycle (time/now-with-format))
+    (println "\n******** Starting to run bombcrypto. Cycle:" @current-cycle (time/now-with-format) "********\n")
 
-    (heroes/start-all-heroes @count-cycle)
+    (heroes/start-all-heroes @current-cycle)
 
     (dotimes [n 20]
       (println "Waiting for 5 minutes before going to the menu. n is" n (time/now-with-format))
       (Thread/sleep (* 1000 60 5))
       (println "Finished waiting." (time/now-with-format))
 
-      (heroes/rest-heroes n)
+      (heroes/is-time-to-rest? n)
 
       (heroes/all-heroes-go-menu-treasure-hunt))
 
@@ -23,7 +23,7 @@
     (heroes/stop-all-heroes)
 
     ;; update the iteration for the next cycle
-    (swap! count-cycle inc)))
+    (swap! current-cycle inc)))
 
 (defn -main []
   (run))
