@@ -2,14 +2,14 @@
   (:require [bombcrypto.mouse :as mouse]))
 
 (defn go-main-menu [browser-id]
-  (mouse/move-to-and-click browser-id 120 125)
+  (mouse/move-to-and-click browser-id 40 115)
   (Thread/sleep 1000))
 
 (defn go-treasure-hunt [browser-id]
-  (mouse/move-to-and-click browser-id 420 325))
+  (mouse/move-to-and-click browser-id 250 260))
 
 (defn open-heroes-popup [browser-id]
-  (mouse/move-to browser-id 410 485)
+  (mouse/move-to browser-id 250 390)
 
   (dotimes [_ 2]
     (mouse/click))
@@ -19,41 +19,42 @@
 
 (defn close-heroes-popup [browser-id]
   ;; move to close popup
-  (mouse/move-to-and-click browser-id 447 175)
+  (mouse/move-to-and-click browser-id 280 155)
 
   ;; click in the middle of the screen
-  (mouse/move-to-and-click browser-id 410 285))
+  (mouse/move-to-and-click browser-id 250 260))
 
 (defn run-all-heroes [browser-id]
-  (mouse/move-to-and-click browser-id 355 210)
+  (mouse/move-to-and-click browser-id 210 180)
   (Thread/sleep 3000))
 
 (defn rest-all-heroes [browser-id]
-  (mouse/move-to-and-click browser-id 395 210)
+  (mouse/move-to-and-click browser-id 238 180)
   (Thread/sleep 3000))
 
 (defn move-to-hero [browser-id number]
   (let [index (- number 1)
-        y (-> (* 50 index) (+ 238))]
-    (mouse/move-to browser-id 300 y)
-    (mouse/click)))
+        y (-> (* 36 index) (+ 205))]
+    (mouse/move-to browser-id 150 y)
+    (mouse/click)
+    ))
 
 (defn hero-go-work [browser-id number]
   (let [index (- number 1)
-        y (-> (* 50 index) (+ 238))]
-    (mouse/move-to browser-id 355 y)
+        y (-> (* 36 index) (+ 205))]
+    (mouse/move-to browser-id 210 y)
     (mouse/click)))
 
 (defn hero-go-rest [browser-id number]
   (let [index (- number 1)
-        y (-> (* 50 index) (+ 238))]
-    (mouse/move-to browser-id 395 y)
+        y (-> (* 36 index) (+ 205))]
+    (mouse/move-to browser-id 240 y)
     (mouse/click)))
 
 (defn hero-go-home [browser-id number]
   (let [index (- number 1)
-        y (-> (* 50 index) (+ 238))]
-    (mouse/move-to browser-id 435 y)
+        y (-> (*  index) (+ 238))]
+    (mouse/move-to browser-id 270 y)
     (mouse/click)))
 
 (defn previous-page []
