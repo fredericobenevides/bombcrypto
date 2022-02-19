@@ -1,15 +1,15 @@
 (ns bombcrypto.screen
   (:require [bombcrypto.mouse :as mouse]))
 
-(defn go-main-menu [id]
-  (mouse/move-to-and-click id 120 125)
+(defn go-main-menu [browser-id]
+  (mouse/move-to-and-click browser-id 120 125)
   (Thread/sleep 1000))
 
-(defn go-treasure-hunt [id]
-  (mouse/move-to-and-click id 420 325))
+(defn go-treasure-hunt [browser-id]
+  (mouse/move-to-and-click browser-id 420 325))
 
-(defn open-heroes-popup [id]
-  (mouse/move-to id 410 485)
+(defn open-heroes-popup [browser-id]
+  (mouse/move-to browser-id 410 485)
 
   (dotimes [_ 2]
     (mouse/click))
@@ -17,43 +17,43 @@
   ;; wait popup stay open before going forward
   (Thread/sleep 1000))
 
-(defn close-heroes-popup [id]
+(defn close-heroes-popup [browser-id]
   ;; move to close popup
-  (mouse/move-to-and-click id 447 175)
+  (mouse/move-to-and-click browser-id 447 175)
 
   ;; click in the middle of the screen
-  (mouse/move-to-and-click id 410 285))
+  (mouse/move-to-and-click browser-id 410 285))
 
-(defn run-all-heroes [id]
-  (mouse/move-to-and-click id 355 210)
+(defn run-all-heroes [browser-id]
+  (mouse/move-to-and-click browser-id 355 210)
   (Thread/sleep 3000))
 
-(defn rest-all-heroes [id]
-  (mouse/move-to-and-click id 395 210)
+(defn rest-all-heroes [browser-id]
+  (mouse/move-to-and-click browser-id 395 210)
   (Thread/sleep 3000))
 
-(defn move-to-hero [id number]
+(defn move-to-hero [browser-id number]
   (let [index (- number 1)
         y (-> (* 50 index) (+ 238))]
-    (mouse/move-to id 300 y)
+    (mouse/move-to browser-id 300 y)
     (mouse/click)))
 
-(defn hero-go-work [id number]
+(defn hero-go-work [browser-id number]
   (let [index (- number 1)
         y (-> (* 50 index) (+ 238))]
-    (mouse/move-to id 355 y)
+    (mouse/move-to browser-id 355 y)
     (mouse/click)))
 
-(defn hero-go-rest [id number]
+(defn hero-go-rest [browser-id number]
   (let [index (- number 1)
         y (-> (* 50 index) (+ 238))]
-    (mouse/move-to id 395 y)
+    (mouse/move-to browser-id 395 y)
     (mouse/click)))
 
-(defn hero-go-home [id number]
+(defn hero-go-home [browser-id number]
   (let [index (- number 1)
         y (-> (* 50 index) (+ 238))]
-    (mouse/move-to id 435 y)
+    (mouse/move-to browser-id 435 y)
     (mouse/click)))
 
 (defn previous-page []
