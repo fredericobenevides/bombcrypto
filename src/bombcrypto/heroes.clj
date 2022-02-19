@@ -33,7 +33,14 @@
                            {:go-home 4}
                            :close-heroes])
 (def heroes-2-is-time-to-rest [:open-heroes
+                               :run-all ;; run all to keep heroes in the right place
                                :rest-all
+                               {:go-home 1}
+                               {:go-home 2}
+                               {:go-home 2}
+                               :next-page
+                               :next-page
+                               {:go-home 2}
                                :close-heroes])
 
 (def heroes-3-start [:open-heroes
@@ -93,26 +100,21 @@
 
 (defn run-heroes [heroes-data browser-id hero-id]
   (println hero-id " - running heroes on the browser with id:" browser-id)
-  (doseq [d heroes-data]
-    (println "==> Executing:" d)
-    (if (map? d)
-      (let [key (first (keys d))]
+  (doseq [hd heroes-data]
+    (println "==> Executing:" hd)
+    (if (map? hd)
+      (let [key (first (keys hd))]
         (cond
-          (= key :go-home) (screen/hero-go-home browser-id (:go-home d))
-          (= key :go-rest) (screen/hero-go-rest browser-id (:go-rest d))))
+          (= key :go-home) (screen/hero-go-home browser-id (:go-home hd))
+          (= key :go-rest) (screen/hero-go-rest browser-id (:go-rest hd))))
       (cond
-        (= d :open-heroes) (screen/open-heroes-popup browser-id)
-        (= d :close-heroes) (screen/close-heroes-popup browser-id)
-        (= d :run-all) (screen/run-all-heroes browser-id)
-        (= d :rest-all) (screen/rest-all-heroes browser-id)
-        (= d :next-page) (do (screen/move-to-hero browser-id 1)
+        (= hd :open-heroes) (screen/open-heroes-popup browser-id)
+        (= hd :close-heroes) (screen/close-heroes-popup browser-id)
+        (= hd :run-all) (screen/run-all-heroes browser-id)
+        (= hd :rest-all) (screen/rest-all-heroes browser-id)
+        (= hd :next-page) (do (screen/move-to-hero browser-id 1)
                              (screen/next-page-of-heroes))))))
 
-(defn all-heroes-go-menu-treasure-hunt []
-  (println "All heroes need to go to the menu and go back to the treasure hunt.")
-  (doseq [id browser-ids]
-    (screen/go-main-menu id)
-    (screen/go-treasure-hunt id)))
 
 (defn heroes1-start [cycle]
   (let [browser-id (nth browser-ids 0)
@@ -208,6 +210,14 @@
     (when (= n-time n-time-to-stop)
       (println "6 - Time to rest/go home" n-time)
       (run-heroes heroes-6-is-time-to-rest browser-id hero-id))))
+
+
+(defn all-heroes-go-menu-treasure-hunt []
+  (println "All heroes need to go to the menu and go back to the treasure hunt.")
+  (doseq [browser-id browser-ids]
+    (println "==>Executing for the browser with id:" browser-id)
+    (screen/go-main-menu browser-id)
+    (screen/go-treasure-hunt browser-id)))
 
 (defn start-all-heroes [cycle]
   (heroes1-start cycle)
