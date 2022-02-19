@@ -2,7 +2,7 @@
   (:require [bombcrypto.heroes :as heroes]
             [bombcrypto.time :as time]))
 
-(def current-cycle (atom 1))
+(def current-cycle (atom 0))
 
 (defn run []
   (while true
