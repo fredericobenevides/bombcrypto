@@ -53,7 +53,7 @@
 
 (defn hero-go-home [browser-id number]
   (let [index (- number 1)
-        y (-> (*  index) (+ 205))]
+        y (-> (* 36 index) (+ 205))]
     (mouse/move-to browser-id 265 y)
     (mouse/click)))
 
