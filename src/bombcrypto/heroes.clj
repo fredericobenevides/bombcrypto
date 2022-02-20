@@ -93,7 +93,8 @@
                            {:go-rest 5}
                            :next-page
                            :next-page
-                           {:go-rest 3}])
+                           {:go-rest 3}
+                           :close-heroes])
 (def heroes-6-is-time-to-rest [:open-heroes
                                :rest-all
                                :close-heroes])
