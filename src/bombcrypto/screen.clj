@@ -2,7 +2,7 @@
   (:require [bombcrypto.mouse :as mouse]))
 
 (defn go-main-menu [browser-id]
-  (mouse/move-to-and-click browser-id 40 115)
+  (mouse/move-to-and-click browser-id 30 115)
   (Thread/sleep 1000))
 
 (defn go-treasure-hunt [browser-id]
@@ -19,7 +19,7 @@
 
 (defn close-heroes-popup [browser-id]
   ;; move to close popup
-  (mouse/move-to-and-click browser-id 280 155)
+  (mouse/move-to-and-click browser-id 274 155)
 
   ;; click in the middle of the screen
   (mouse/move-to-and-click browser-id 250 260))
@@ -48,13 +48,13 @@
 (defn hero-go-rest [browser-id number]
   (let [index (- number 1)
         y (-> (* 36 index) (+ 205))]
-    (mouse/move-to browser-id 240 y)
+    (mouse/move-to browser-id 235 y)
     (mouse/click)))
 
 (defn hero-go-home [browser-id number]
   (let [index (- number 1)
-        y (-> (*  index) (+ 238))]
-    (mouse/move-to browser-id 270 y)
+        y (-> (*  index) (+ 205))]
+    (mouse/move-to browser-id 265 y)
     (mouse/click)))
 
 (defn previous-page []
