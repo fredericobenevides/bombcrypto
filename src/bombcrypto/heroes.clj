@@ -98,6 +98,46 @@
                                :rest-all
                                :close-heroes])
 
+(def heroes-7-start [:open-heroes
+                     :run-all
+                     :close-heroes])
+(def heroes-7-iteration-1 [:open-heroes
+                           :run-all
+                           :close-heroes])
+(def heroes-7-is-time-to-rest [:open-heroes
+                               :rest-all
+                               :close-heroes])
+
+(def heroes-8-start [:open-heroes
+                     :run-all
+                     :close-heroes])
+(def heroes-8-iteration-1 [:open-heroes
+                           :run-all
+                           :close-heroes])
+(def heroes-8-is-time-to-rest [:open-heroes
+                               :rest-all
+                               :close-heroes])
+
+(def heroes-9-start [:open-heroes
+                     :run-all
+                     :close-heroes])
+(def heroes-9-iteration-1 [:open-heroes
+                           :run-all
+                           :close-heroes])
+(def heroes-9-is-time-to-rest [:open-heroes
+                               :rest-all
+                               :close-heroes])
+
+(def heroes-10-start [:open-heroes
+                      :run-all
+                      :close-heroes])
+(def heroes-10-iteration-1 [:open-heroes
+                            :run-all
+                            :close-heroes])
+(def heroes-10-is-time-to-rest [:open-heroes
+                                :rest-all
+                                :close-heroes])
+
 (defn run-heroes [heroes-data browser-id hero-id]
   (println hero-id " - running heroes on the browser with id:" browser-id)
   (doseq [hd heroes-data]
@@ -113,8 +153,7 @@
         (= hd :run-all) (screen/run-all-heroes browser-id)
         (= hd :rest-all) (screen/rest-all-heroes browser-id)
         (= hd :next-page) (do (screen/move-to-hero browser-id 1)
-                             (screen/next-page-of-heroes))))))
-
+                              (screen/next-page-of-heroes))))))
 
 (defn heroes1-start [cycle]
   (let [browser-id (nth browser-ids 0)
@@ -211,6 +250,65 @@
       (println "6 - Time to rest/go home" n-time)
       (run-heroes heroes-6-is-time-to-rest browser-id hero-id))))
 
+(defn heroes7-start [cycle]
+  (let [browser-id (nth browser-ids 6)
+        hero-id 7
+        total-iterations 2
+        iteration (cycle->iteration cycle total-iterations)]
+    (cond
+      (= iteration 0) (run-heroes heroes-7-start browser-id hero-id)
+      (= iteration 1) (run-heroes heroes-7-iteration-1 browser-id hero-id))))
+
+(defn heroes7-is-time-to-rest? [n-time]
+  (let [browser-id (nth browser-ids 6)]
+    (when (= n-time n-time-to-stop)
+      (println "7 - Time to rest/go home" n-time)
+      (run-heroes heroes-7-is-time-to-rest browser-id 1))))
+
+(defn heroes8-start [cycle]
+  (let [browser-id (nth browser-ids 7)
+        hero-id 8
+        total-iterations 2
+        iteration (cycle->iteration cycle total-iterations)]
+    (cond
+      (= iteration 0) (run-heroes heroes-8-start browser-id hero-id)
+      (= iteration 1) (run-heroes heroes-8-iteration-1 browser-id hero-id))))
+
+(defn heroes8-is-time-to-rest? [n-time]
+  (let [browser-id (nth browser-ids 7)]
+    (when (= n-time n-time-to-stop)
+      (println "8 - Time to rest/go home" n-time)
+      (run-heroes heroes-8-is-time-to-rest browser-id 1))))
+
+(defn heroes9-start [cycle]
+  (let [browser-id (nth browser-ids 8)
+        hero-id 9
+        total-iterations 2
+        iteration (cycle->iteration cycle total-iterations)]
+    (cond
+      (= iteration 0) (run-heroes heroes-9-start browser-id hero-id)
+      (= iteration 1) (run-heroes heroes-9-iteration-1 browser-id hero-id))))
+
+(defn heroes9-is-time-to-rest? [n-time]
+  (let [browser-id (nth browser-ids 8)]
+    (when (= n-time n-time-to-stop)
+      (println "9 - Time to rest/go home" n-time)
+      (run-heroes heroes-9-is-time-to-rest browser-id 1))))
+
+(defn heroes10-start [cycle]
+  (let [browser-id (nth browser-ids 9)
+        hero-id 10
+        total-iterations 2
+        iteration (cycle->iteration cycle total-iterations)]
+    (cond
+      (= iteration 0) (run-heroes heroes-10-start browser-id hero-id)
+      (= iteration 1) (run-heroes heroes-10-iteration-1 browser-id hero-id))))
+
+(defn heroes10-is-time-to-rest? [n-time]
+  (let [browser-id (nth browser-ids 9)]
+    (when (= n-time n-time-to-stop)
+      (println "10 - Time to rest/go home" n-time)
+      (run-heroes heroes-10-is-time-to-rest browser-id 1))))
 
 (defn all-heroes-go-menu-treasure-hunt []
   (println "All heroes need to go to the menu and go back to the treasure hunt.")
@@ -225,7 +323,11 @@
   (heroes3-start cycle)
   (heroes4-start cycle)
   (heroes5-start cycle)
-  (heroes6-start cycle))
+  (heroes6-start cycle)
+  (heroes7-start cycle)
+  (heroes8-start cycle)
+  (heroes9-start cycle)
+  (heroes10-start cycle))
 
 (defn stop-all-heroes []
   (doseq [browser-id browser-ids]
@@ -239,9 +341,9 @@
   (heroes3-is-time-to-rest? n-time)
   (heroes4-is-time-to-rest? n-time)
   (heroes5-is-time-to-rest? n-time)
-  (heroes6-is-time-to-rest? n-time))
-
-
-
-
+  (heroes6-is-time-to-rest? n-time)
+  (heroes7-is-time-to-rest? n-time)
+  (heroes8-is-time-to-rest? n-time)
+  (heroes9-is-time-to-rest? n-time)
+  (heroes10-is-time-to-rest? n-time))
 
