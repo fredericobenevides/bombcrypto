@@ -20,3 +20,11 @@
 (defn scroll-down
   []
   (shell/sh "sh" "-c" "xdotool click 5"))
+
+(defn move-mouse-around []
+  (let [x 1920]
+    (loop [n 100]
+      (when (<= n x)
+        (shell/sh "sh" "-c" (str "xdotool mousemove --sync " n " " (+ 300 (rand-int 300))))
+        (Thread/sleep 20)
+        (recur (+ 15 n))))))
