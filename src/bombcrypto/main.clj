@@ -24,9 +24,6 @@
       (heroes/is-time-to-rest? n)
       (heroes/all-heroes-go-menu-treasure-hunt))
 
-    ;; make sure all heroes stopped before starting again
-    (heroes/stop-all-heroes)
-
     ;; update the iteration for the next cycle
     (swap! current-cycle inc)))
 
