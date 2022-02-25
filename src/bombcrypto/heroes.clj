@@ -102,6 +102,10 @@
                      :close-heroes])
 (def heroes-7-iteration-1 [:open-heroes
                            :run-all
+                           :next-page
+                           {:go-rest 5}
+                           :next-page
+                           {:go-rest 5}
                            :close-heroes])
 (def heroes-7-is-time-to-rest [:open-heroes
                                :rest-all
@@ -112,6 +116,9 @@
                      :close-heroes])
 (def heroes-8-iteration-1 [:open-heroes
                            :run-all
+                           :next-page
+                           :next-page
+                           {:go-rest 5}
                            :close-heroes])
 (def heroes-8-is-time-to-rest [:open-heroes
                                :rest-all
@@ -122,6 +129,10 @@
                      :close-heroes])
 (def heroes-9-iteration-1 [:open-heroes
                            :run-all
+                           :next-page
+                           {:go-rest 5}
+                           :next-page
+                           {:go-rest 4}
                            :close-heroes])
 (def heroes-9-is-time-to-rest [:open-heroes
                                :rest-all
@@ -132,6 +143,9 @@
                       :close-heroes])
 (def heroes-10-iteration-1 [:open-heroes
                             :run-all
+                            :next-page
+                            :next-page
+                            {:go-rest 5}
                             :close-heroes])
 (def heroes-10-is-time-to-rest [:open-heroes
                                 :rest-all
