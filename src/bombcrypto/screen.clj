@@ -65,4 +65,11 @@
   (dotimes [_ 20]
     (mouse/scroll-down)))
 
+(defn open-chest [browser-id]
+  (mouse/move-to-and-click browser-id 430 115)
+  (Thread/sleep 1000))
+
+(defn close-chest [browser-id]
+  (mouse/move-to-and-click browser-id 380 158)
+  (Thread/sleep 1000))
 

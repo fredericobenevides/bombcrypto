@@ -22,7 +22,7 @@
       (mouse/move-mouse-around)
 
       (heroes/is-time-to-rest? n)
-      (heroes/all-heroes-go-menu-treasure-hunt))
+      (heroes/all-heroes-open-close-chest))
 
     ;; update the iteration for the next cycle
     (swap! current-cycle inc)))

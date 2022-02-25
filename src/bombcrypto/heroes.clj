@@ -105,7 +105,7 @@
                            :next-page
                            {:go-rest 5}
                            :next-page
-                           {:go-rest 5}
+                           {:go-rest 4}
                            :close-heroes])
 (def heroes-7-is-time-to-rest [:open-heroes
                                :rest-all
@@ -329,6 +329,13 @@
     (println "==>Executing for the browser with id:" browser-id)
     (screen/go-main-menu browser-id)
     (screen/go-treasure-hunt browser-id)))
+
+(defn all-heroes-open-close-chest []
+  (println "Open and close chest for all heroes")
+  (doseq [browser-id (browser/load-all-browser-ids)]
+    (println "==>Executing for the browser with id:" browser-id)
+    (screen/open-chest browser-id)
+    (screen/close-chest browser-id)))
 
 (defn start-all-heroes [cycle]
   (heroes1-start cycle)
