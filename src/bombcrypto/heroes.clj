@@ -4,8 +4,8 @@
 
 (def n-time-to-stop 6)
 
-(defn- cycle->iteration [cycle iteration]
-  (mod cycle iteration))
+(defn- cycle->start-index [cycle total-starts]
+  (mod cycle total-starts))
 
 (def heroes-1
   {:id 1
@@ -207,92 +207,92 @@
 (defn heroes1-start [cycle]
   (let [browser-id (browser/get-browser-id 1)
         hero-id 1
-        total-iterations 2
-        iteration (cycle->iteration cycle total-iterations)]
+        total-starts (count (:starts heroes-1))
+        start-index (cycle->start-index cycle total-starts)]
     (cond
-      (= iteration 0) (run-heroes (get (:starts heroes-1) 0) browser-id hero-id)
-      (= iteration 1) (run-heroes (get (:starts heroes-1) 1) browser-id hero-id))))
+      (= start-index 0) (run-heroes (get (:starts heroes-1) 0) browser-id hero-id)
+      (= start-index 1) (run-heroes (get (:starts heroes-1) 1) browser-id hero-id))))
 
 (defn heroes2-start [cycle]
   (let [browser-id (browser/get-browser-id 2)
         hero-id 2
-        total-iterations 2
-        iteration (cycle->iteration cycle total-iterations)]
+        total-starts (count (:starts heroes-2))
+        start-index (cycle->start-index cycle total-starts)]
     (cond
-      (= iteration 0) (run-heroes (get (:starts heroes-2) 0) browser-id hero-id)
-      (= iteration 1) (run-heroes (get (:starts heroes-2) 1) browser-id hero-id))))
+      (= start-index 0) (run-heroes (get (:starts heroes-2) 0) browser-id hero-id)
+      (= start-index 1) (run-heroes (get (:starts heroes-2) 1) browser-id hero-id))))
 
 (defn heroes3-start [cycle]
   (let [browser-id (browser/get-browser-id 3)
         hero-id 3
-        total-iterations 2
-        iteration (cycle->iteration cycle total-iterations)]
+        total-starts (count (:starts heroes-3))
+        start-index (cycle->start-index cycle total-starts)]
     (cond
-      (= iteration 0) (run-heroes (get (:starts heroes-3) 0) browser-id hero-id)
-      (= iteration 1) (run-heroes (get (:starts heroes-3) 1) browser-id hero-id))))
+      (= start-index 0) (run-heroes (get (:starts heroes-3) 0) browser-id hero-id)
+      (= start-index 1) (run-heroes (get (:starts heroes-3) 1) browser-id hero-id))))
 
 (defn heroes4-start [cycle]
   (let [browser-id (browser/get-browser-id 4)
         hero-id 4
-        total-iterations 2
-        iteration (cycle->iteration cycle total-iterations)]
+        total-starts (count (:starts heroes-4))
+        start-index (cycle->start-index cycle total-starts)]
     (cond
-      (= iteration 0) (run-heroes (get (:starts heroes-4) 0) browser-id hero-id)
-      (= iteration 1) (run-heroes (get (:starts heroes-4) 1) browser-id hero-id))))
+      (= start-index 0) (run-heroes (get (:starts heroes-4) 0) browser-id hero-id)
+      (= start-index 1) (run-heroes (get (:starts heroes-4) 1) browser-id hero-id))))
 
 (defn heroes5-start [cycle]
   (let [browser-id (browser/get-browser-id 5)
         hero-id 5
-        total-iterations 2
-        iteration (cycle->iteration cycle total-iterations)]
+        total-starts (count (:starts heroes-5))
+        start-index (cycle->start-index cycle total-starts)]
     (cond
-      (= iteration 0) (run-heroes (get (:starts heroes-5) 0) browser-id hero-id)
-      (= iteration 1) (run-heroes (get (:starts heroes-5) 1) browser-id hero-id))))
+      (= start-index 0) (run-heroes (get (:starts heroes-5) 0) browser-id hero-id)
+      (= start-index 1) (run-heroes (get (:starts heroes-5) 1) browser-id hero-id))))
 
 (defn heroes6-start [cycle]
   (let [browser-id (browser/get-browser-id 6)
         hero-id 6
-        total-iterations 2
-        iteration (cycle->iteration cycle total-iterations)]
+        total-starts (count (:starts heroes-6))
+        start-index (cycle->start-index cycle total-starts)]
     (cond
-      (= iteration 0) (run-heroes (get (:starts heroes-6) 0) browser-id hero-id)
-      (= iteration 1) (run-heroes (get (:starts heroes-6) 1) browser-id hero-id))))
+      (= start-index 0) (run-heroes (get (:starts heroes-6) 0) browser-id hero-id)
+      (= start-index 1) (run-heroes (get (:starts heroes-6) 1) browser-id hero-id))))
 
 (defn heroes7-start [cycle]
   (let [browser-id (browser/get-browser-id 7)
         hero-id 7
-        total-iterations 2
-        iteration (cycle->iteration cycle total-iterations)]
+        total-starts (count (:starts heroes-7))
+        start-index (cycle->start-index cycle total-starts)]
     (cond
-      (= iteration 0) (run-heroes (get (:starts heroes-7) 0) browser-id hero-id)
-      (= iteration 1) (run-heroes (get (:starts heroes-7) 1) browser-id hero-id))))
+      (= start-index 0) (run-heroes (get (:starts heroes-7) 0) browser-id hero-id)
+      (= start-index 1) (run-heroes (get (:starts heroes-7) 1) browser-id hero-id))))
 
 (defn heroes8-start [cycle]
   (let [browser-id (browser/get-browser-id 8)
         hero-id 8
-        total-iterations 2
-        iteration (cycle->iteration cycle total-iterations)]
+        total-starts (count (:starts heroes-8))
+        start-index (cycle->start-index cycle total-starts)]
     (cond
-      (= iteration 0) (run-heroes (get (:starts heroes-8) 0) browser-id hero-id)
-      (= iteration 1) (run-heroes (get (:starts heroes-8) 1) browser-id hero-id))))
+      (= start-index 0) (run-heroes (get (:starts heroes-8) 0) browser-id hero-id)
+      (= start-index 1) (run-heroes (get (:starts heroes-8) 1) browser-id hero-id))))
 
 (defn heroes9-start [cycle]
   (let [browser-id (browser/get-browser-id 9)
         hero-id 9
-        total-iterations 2
-        iteration (cycle->iteration cycle total-iterations)]
+        total-starts (count (:starts heroes-9))
+        start-index (cycle->start-index cycle total-starts)]
     (cond
-      (= iteration 0) (run-heroes (get (:starts heroes-9) 0) browser-id hero-id)
-      (= iteration 1) (run-heroes (get (:starts heroes-9) 1) browser-id hero-id))))
+      (= start-index 0) (run-heroes (get (:starts heroes-9) 0) browser-id hero-id)
+      (= start-index 1) (run-heroes (get (:starts heroes-9) 1) browser-id hero-id))))
 
 (defn heroes10-start [cycle]
   (let [browser-id (browser/get-browser-id 10)
         hero-id 10
-        total-iterations 2
-        iteration (cycle->iteration cycle total-iterations)]
+        total-starts (count (:starts heroes-10))
+        start-index (cycle->start-index cycle total-starts)]
     (cond
-      (= iteration 0) (run-heroes (get (:starts heroes-10) 0) browser-id hero-id)
-      (= iteration 1) (run-heroes (get (:starts heroes-10) 1) browser-id hero-id))))
+      (= start-index 0) (run-heroes (get (:starts heroes-10) 0) browser-id hero-id)
+      (= start-index 1) (run-heroes (get (:starts heroes-10) 1) browser-id hero-id))))
 
 (defn all-heroes-go-menu-treasure-hunt []
   (println "All heroes need to go to the menu and go back to the treasure hunt.")
