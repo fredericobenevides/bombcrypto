@@ -7,9 +7,8 @@
 (defn- cycle->start-index [cycle total-starts]
   (mod cycle total-starts))
 
-(def heroes-1
+(def account-1
   {:id 1
-   :name "heroes-1"
    :starts [[:open-heroes
              :run-all
              :close-heroes]
@@ -23,9 +22,8 @@
             :rest-all
             :close-heroes]})
 
-(def heroes-2
+(def account-2
   {:id 2
-   :name "heroes-2"
    :starts [[:open-heroes
              :run-all
              :close-heroes]
@@ -47,9 +45,8 @@
             {:go-home 2}
             :close-heroes]})
 
-(def heroes-3
+(def account-3
   {:id 3
-   :name "heroes-3"
    :starts [[:open-heroes
              :run-all
              :close-heroes]
@@ -63,9 +60,8 @@
             :rest-all
             :close-heroes]})
 
-(def heroes-4
+(def account-4
   {:id 4
-   :name "heroes-4"
    :starts [[:open-heroes
              :run-all
              :close-heroes]
@@ -82,9 +78,8 @@
             :rest-all
             :close-heroes]})
 
-(def heroes-5
+(def account-5
   {:id 5
-   :name "heroes-5"
    :starts [[:open-heroes
              :run-all
              :close-heroes]
@@ -97,9 +92,8 @@
             :rest-all
             :close-heroes]})
 
-(def heroes-6
+(def account-6
   {:id 6
-   :name "heroes-6"
    :starts [[:open-heroes
              :run-all
              :close-heroes]
@@ -115,9 +109,8 @@
             :rest-all
             :close-heroes]})
 
-(def heroes-7
+(def account-7
   {:id 7
-   :name "heroes-7"
    :starts [[:open-heroes
              :run-all
              :close-heroes]
@@ -132,9 +125,8 @@
             :rest-all
             :close-heroes]})
 
-(def heroes-8
+(def account-8
   {:id 8
-   :name "heroes-8"
    :starts [[:open-heroes
              :run-all
              :close-heroes]
@@ -148,9 +140,8 @@
             :rest-all
             :close-heroes]})
 
-(def heroes-9
+(def account-9
   {:id 9
-   :name "heroes-9"
    :starts [[:open-heroes
              :run-all
              :close-heroes]
@@ -165,9 +156,8 @@
             :rest-all
             :close-heroes]})
 
-(def heroes-10
+(def account-10
   {:id 10
-   :name "heroes-10"
    :starts [[:open-heroes
              :run-all
              :close-heroes]
@@ -181,8 +171,8 @@
             :rest-all
             :close-heroes]})
 
-(defn run-heroes [heroes-data browser-id hero-id]
-  (println hero-id " - running heroes on the browser with id:" browser-id)
+(defn run-account [heroes-data browser-id account-id]
+  (println account-id " - running heroes on the browser with id:" browser-id)
   (doseq [hd heroes-data]
     (println "==> Executing:" hd)
     (if (map? hd)
@@ -198,101 +188,101 @@
         (= hd :next-page) (do (screen/move-to-hero browser-id 1)
                               (screen/next-page-of-heroes))))))
 
-(defn heroes-is-time-to-rest? [{:keys [id rest]} n-time]
-  (let [browser-id (browser/get-browser-id id)]
+(defn heroes-is-time-to-rest? [{:keys [account-id rest]} n-time]
+  (let [browser-id (browser/get-browser-id account-id)]
     (when (= n-time n-time-to-stop)
-      (println id "- Time to rest/go home" n-time)
-      (run-heroes rest browser-id id))))
+      (println account-id "- Time to rest/go home" n-time)
+      (run-account rest browser-id account-id))))
 
 (defn heroes1-start [cycle]
   (let [browser-id (browser/get-browser-id 1)
         hero-id 1
-        total-starts (count (:starts heroes-1))
+        total-starts (count (:starts account-1))
         start-index (cycle->start-index cycle total-starts)]
     (cond
-      (= start-index 0) (run-heroes (get (:starts heroes-1) 0) browser-id hero-id)
-      (= start-index 1) (run-heroes (get (:starts heroes-1) 1) browser-id hero-id))))
+      (= start-index 0) (run-account (get (:starts account-1) 0) browser-id hero-id)
+      (= start-index 1) (run-account (get (:starts account-1) 1) browser-id hero-id))))
 
 (defn heroes2-start [cycle]
   (let [browser-id (browser/get-browser-id 2)
         hero-id 2
-        total-starts (count (:starts heroes-2))
+        total-starts (count (:starts account-2))
         start-index (cycle->start-index cycle total-starts)]
     (cond
-      (= start-index 0) (run-heroes (get (:starts heroes-2) 0) browser-id hero-id)
-      (= start-index 1) (run-heroes (get (:starts heroes-2) 1) browser-id hero-id))))
+      (= start-index 0) (run-account (get (:starts account-2) 0) browser-id hero-id)
+      (= start-index 1) (run-account (get (:starts account-2) 1) browser-id hero-id))))
 
 (defn heroes3-start [cycle]
   (let [browser-id (browser/get-browser-id 3)
         hero-id 3
-        total-starts (count (:starts heroes-3))
+        total-starts (count (:starts account-3))
         start-index (cycle->start-index cycle total-starts)]
     (cond
-      (= start-index 0) (run-heroes (get (:starts heroes-3) 0) browser-id hero-id)
-      (= start-index 1) (run-heroes (get (:starts heroes-3) 1) browser-id hero-id))))
+      (= start-index 0) (run-account (get (:starts account-3) 0) browser-id hero-id)
+      (= start-index 1) (run-account (get (:starts account-3) 1) browser-id hero-id))))
 
 (defn heroes4-start [cycle]
   (let [browser-id (browser/get-browser-id 4)
         hero-id 4
-        total-starts (count (:starts heroes-4))
+        total-starts (count (:starts account-4))
         start-index (cycle->start-index cycle total-starts)]
     (cond
-      (= start-index 0) (run-heroes (get (:starts heroes-4) 0) browser-id hero-id)
-      (= start-index 1) (run-heroes (get (:starts heroes-4) 1) browser-id hero-id))))
+      (= start-index 0) (run-account (get (:starts account-4) 0) browser-id hero-id)
+      (= start-index 1) (run-account (get (:starts account-4) 1) browser-id hero-id))))
 
 (defn heroes5-start [cycle]
   (let [browser-id (browser/get-browser-id 5)
         hero-id 5
-        total-starts (count (:starts heroes-5))
+        total-starts (count (:starts account-5))
         start-index (cycle->start-index cycle total-starts)]
     (cond
-      (= start-index 0) (run-heroes (get (:starts heroes-5) 0) browser-id hero-id)
-      (= start-index 1) (run-heroes (get (:starts heroes-5) 1) browser-id hero-id))))
+      (= start-index 0) (run-account (get (:starts account-5) 0) browser-id hero-id)
+      (= start-index 1) (run-account (get (:starts account-5) 1) browser-id hero-id))))
 
 (defn heroes6-start [cycle]
   (let [browser-id (browser/get-browser-id 6)
         hero-id 6
-        total-starts (count (:starts heroes-6))
+        total-starts (count (:starts account-6))
         start-index (cycle->start-index cycle total-starts)]
     (cond
-      (= start-index 0) (run-heroes (get (:starts heroes-6) 0) browser-id hero-id)
-      (= start-index 1) (run-heroes (get (:starts heroes-6) 1) browser-id hero-id))))
+      (= start-index 0) (run-account (get (:starts account-6) 0) browser-id hero-id)
+      (= start-index 1) (run-account (get (:starts account-6) 1) browser-id hero-id))))
 
 (defn heroes7-start [cycle]
   (let [browser-id (browser/get-browser-id 7)
         hero-id 7
-        total-starts (count (:starts heroes-7))
+        total-starts (count (:starts account-7))
         start-index (cycle->start-index cycle total-starts)]
     (cond
-      (= start-index 0) (run-heroes (get (:starts heroes-7) 0) browser-id hero-id)
-      (= start-index 1) (run-heroes (get (:starts heroes-7) 1) browser-id hero-id))))
+      (= start-index 0) (run-account (get (:starts account-7) 0) browser-id hero-id)
+      (= start-index 1) (run-account (get (:starts account-7) 1) browser-id hero-id))))
 
 (defn heroes8-start [cycle]
   (let [browser-id (browser/get-browser-id 8)
         hero-id 8
-        total-starts (count (:starts heroes-8))
+        total-starts (count (:starts account-8))
         start-index (cycle->start-index cycle total-starts)]
     (cond
-      (= start-index 0) (run-heroes (get (:starts heroes-8) 0) browser-id hero-id)
-      (= start-index 1) (run-heroes (get (:starts heroes-8) 1) browser-id hero-id))))
+      (= start-index 0) (run-account (get (:starts account-8) 0) browser-id hero-id)
+      (= start-index 1) (run-account (get (:starts account-8) 1) browser-id hero-id))))
 
 (defn heroes9-start [cycle]
   (let [browser-id (browser/get-browser-id 9)
         hero-id 9
-        total-starts (count (:starts heroes-9))
+        total-starts (count (:starts account-9))
         start-index (cycle->start-index cycle total-starts)]
     (cond
-      (= start-index 0) (run-heroes (get (:starts heroes-9) 0) browser-id hero-id)
-      (= start-index 1) (run-heroes (get (:starts heroes-9) 1) browser-id hero-id))))
+      (= start-index 0) (run-account (get (:starts account-9) 0) browser-id hero-id)
+      (= start-index 1) (run-account (get (:starts account-9) 1) browser-id hero-id))))
 
 (defn heroes10-start [cycle]
   (let [browser-id (browser/get-browser-id 10)
         hero-id 10
-        total-starts (count (:starts heroes-10))
+        total-starts (count (:starts account-10))
         start-index (cycle->start-index cycle total-starts)]
     (cond
-      (= start-index 0) (run-heroes (get (:starts heroes-10) 0) browser-id hero-id)
-      (= start-index 1) (run-heroes (get (:starts heroes-10) 1) browser-id hero-id))))
+      (= start-index 0) (run-account (get (:starts account-10) 0) browser-id hero-id)
+      (= start-index 1) (run-account (get (:starts account-10) 1) browser-id hero-id))))
 
 (defn all-heroes-go-menu-treasure-hunt []
   (println "All heroes need to go to the menu and go back to the treasure hunt.")
@@ -327,14 +317,14 @@
     (screen/close-heroes-popup browser-id)))
 
 (defn is-time-to-rest? [n-time]
-  (heroes-is-time-to-rest? heroes-1 n-time)
-  (heroes-is-time-to-rest? heroes-2 n-time)
-  (heroes-is-time-to-rest? heroes-3 n-time)
-  (heroes-is-time-to-rest? heroes-4 n-time)
-  (heroes-is-time-to-rest? heroes-5 n-time)
-  (heroes-is-time-to-rest? heroes-6 n-time)
-  (heroes-is-time-to-rest? heroes-7 n-time)
-  (heroes-is-time-to-rest? heroes-8 n-time)
-  (heroes-is-time-to-rest? heroes-9 n-time)
-  (heroes-is-time-to-rest? heroes-10 n-time))
+  (heroes-is-time-to-rest? account-1 n-time)
+  (heroes-is-time-to-rest? account-2 n-time)
+  (heroes-is-time-to-rest? account-3 n-time)
+  (heroes-is-time-to-rest? account-4 n-time)
+  (heroes-is-time-to-rest? account-5 n-time)
+  (heroes-is-time-to-rest? account-6 n-time)
+  (heroes-is-time-to-rest? account-7 n-time)
+  (heroes-is-time-to-rest? account-8 n-time)
+  (heroes-is-time-to-rest? account-9 n-time)
+  (heroes-is-time-to-rest? account-10 n-time))
 
