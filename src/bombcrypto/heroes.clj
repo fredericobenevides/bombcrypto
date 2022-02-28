@@ -188,7 +188,7 @@
         (= hd :next-page) (do (screen/move-to-hero browser-id 1)
                               (screen/next-page-of-heroes))))))
 
-(defn heroes-is-time-to-rest? [{:keys [account-id rest]} n-time]
+(defn heroes-is-time-to-rest? [{account-id :id rest :rest} n-time]
   (let [browser-id (browser/get-browser-id account-id)]
     (when (= n-time n-time-to-stop)
       (println account-id "- Time to rest/go home" n-time)
