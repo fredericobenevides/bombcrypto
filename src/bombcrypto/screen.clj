@@ -25,11 +25,11 @@
   (mouse/move-to-and-click browser-id 250 260))
 
 (defn run-all-heroes [browser-id]
-  (mouse/move-to-and-click browser-id 210 180)
+  (mouse/move-to-and-click browser-id 204 180)
   (Thread/sleep 3000))
 
 (defn rest-all-heroes [browser-id]
-  (mouse/move-to-and-click browser-id 238 180)
+  (mouse/move-to-and-click browser-id 235 180)
   (Thread/sleep 3000))
 
 (defn move-to-hero [browser-id number]
@@ -42,7 +42,7 @@
 (defn hero-go-work [browser-id number]
   (let [index (- number 1)
         y (-> (* 36 index) (+ 205))]
-    (mouse/move-to browser-id 210 y)
+    (mouse/move-to browser-id 204 y)
     (mouse/click)))
 
 (defn hero-go-rest [browser-id number]
