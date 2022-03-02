@@ -30,18 +30,20 @@
             [:open-heroes
              :run-all
              {:go-home 1}
+             {:go-home 2}
              :next-page
              :next-page
-             {:go-home 4}
+             {:go-home 1}
+             {:go-home 1}
              :close-heroes]]
    :rest   [:open-heroes
             :run-all
             :rest-all
             {:go-home 1}
-            {:go-home 2}
-            {:go-home 2}
+            {:go-home 1}
             :next-page
             :next-page
+            {:go-home 1}
             {:go-home 2}
             :close-heroes]})
 
@@ -70,8 +72,9 @@
              {:go-rest 3}
              {:go-rest 4}
              :next-page
+             {:go-rest 1}
              {:go-rest 2}
-             {:go-rest 5}
+             {:go-rest 2}
              {:go-rest 5}
              :close-heroes]]
    :rest   [:open-heroes
@@ -100,10 +103,10 @@
             [:open-heroes
              :run-all
              {:go-rest 1}
-             {:go-rest 5}
+             {:go-rest 4}
              :next-page
              :next-page
-             {:go-rest 3}
+             {:go-rest 2}
              :close-heroes]]
    :rest   [:open-heroes
             :rest-all
