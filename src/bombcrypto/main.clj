@@ -21,7 +21,7 @@
 
       (mouse/move-mouse-around)
 
-      (heroes/is-time-to-rest? n)
+      (heroes/is-time-to-stop? n)
       (heroes/all-heroes-open-close-chest))
 
     ;; update the iteration for the next cycle
