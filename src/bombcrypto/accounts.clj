@@ -30,22 +30,24 @@
             :close-heroes]
            [:open-heroes
             :run-all
-            {:go-home 1}
-            {:go-home 2}
+            {:go-home 1} ;; 564
+            {:go-home 2} ;; 411
             :next-page
-            :next-page
-            {:go-home 1}
-            {:go-home 1}
+            {:go-home 1} ;; 694
+            {:go-rest 1} ;; 253
+            {:go-rest 1} ;; 254
+            {:go-rest 4} ;; 115
+            {:go-home 4} ;; 550
             :close-heroes]]
    :stop  [:open-heroes
            :run-all
            :rest-all
-           {:go-home 1}
-           {:go-home 1}
+           {:go-home 1} ;; 564
+           {:go-home 1} ;; 539
            :next-page
+           {:go-home 1} ;; 694
            :next-page
-           {:go-home 1}
-           {:go-home 2}
+           {:go-home 2} ;; 550
            :close-heroes]})
 
 (def account-3
@@ -70,13 +72,13 @@
             :close-heroes]
            [:open-heroes
             :run-all
+            {:go-rest 2}
+            {:go-rest 2}
             {:go-rest 3}
             {:go-rest 4}
+            {:go-rest 4}
             :next-page
-            {:go-rest 1}
             {:go-rest 2}
-            {:go-rest 2}
-            {:go-rest 5}
             :close-heroes]]
    :stop  [:open-heroes
            :rest-all
@@ -137,8 +139,9 @@
            [:open-heroes
             :run-all
             :next-page
+            {:go-rest 1}
             :next-page
-            {:go-rest 5}
+            {:go-rest 4}
             :close-heroes]]
    :stop  [:open-heroes
            :rest-all
