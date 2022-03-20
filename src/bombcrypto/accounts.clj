@@ -7,176 +7,167 @@
 (defn- cycle->start-index [cycle total-start]
   (mod cycle total-start))
 
-(def account-1
-  {:id 1
-   :start [[:open-heroes
+(def accounts-config
+  [{:id 1
+    :start [[:open-heroes
+             :run-all
+             :close-heroes]
+            [:open-heroes
+             :run-all
+             :next-page
+             {:go-rest 5}
+             :next-page
+             {:go-rest 4}
+             :close-heroes]]
+    :stop  [:open-heroes
+            :rest-all
+            :close-heroes]}
+   {:id 2
+    :start [[:open-heroes
+             :run-all
+             {:go-home 3} ;; 539
+             :next-page
+             {:go-home 2} ;; 254
+             {:go-home 5} ;; 384
+             :next-page
+             {:go-home 2} ;; 662
+             :close-heroes]
+            [:open-heroes
+             :run-all
+             {:go-home 1} ;; 564
+             {:go-home 1} ;; 434
+             {:go-rest 2} ;; 411
+             {:go-home 3} ;; 694
+             {:go-rest 3} ;; 253
+             {:go-rest 5} ;; 115
+             {:go-home 5} ;; 550
+             :next-page
+             {:go-rest 3} ;;  710
+             :close-heroes]]
+    :stop  [:open-heroes
             :run-all
-            :close-heroes]
-           [:open-heroes
-            :run-all
-            :next-page
-            {:go-rest 5}
-            :next-page
-            {:go-rest 4}
-            :close-heroes]]
-   :stop  [:open-heroes
-           :rest-all
-           :close-heroes]})
-
-(def account-2
-  {:id 2
-   :start [[:open-heroes
-            :run-all
-            :close-heroes]
-           [:open-heroes
-            :run-all
+            :rest-all
             {:go-home 1} ;; 564
-            {:go-home 2} ;; 411
+            {:go-home 1} ;; 434
+            {:go-home 4} ;; 694
             :next-page
-            {:go-home 1} ;; 694
-            {:go-rest 1} ;; 253
-            {:go-rest 1} ;; 254
-            {:go-rest 4} ;; 115
-            {:go-home 4} ;; 550
-            :close-heroes]]
-   :stop  [:open-heroes
-           :run-all
-           :rest-all
-           {:go-home 1} ;; 564
-           {:go-home 1} ;; 539
-           :next-page
-           {:go-home 1} ;; 694
-           :next-page
-           {:go-home 2} ;; 550
-           :close-heroes]})
+            {:go-home 3} ;; 550
+            :close-heroes]}
+   {:id 3
+    :start [[:open-heroes
+             :run-all
+             :close-heroes]
+            [:open-heroes
+             :run-all
+             {:go-rest 5}
+             :next-page
+             {:go-rest 2}
+             :next-page
+             {:go-rest 3}
+             :close-heroes]]
+    :stop  [:open-heroes
+            :rest-all
+            :close-heroes]}
+   {:id 4
+    :start [[:open-heroes
+             :run-all
+             :close-heroes]
+            [:open-heroes
+             :run-all
+             {:go-rest 2}
+             {:go-rest 2}
+             {:go-rest 3}
+             {:go-rest 4}
+             {:go-rest 4}
+             :next-page
+             {:go-rest 1}
+             {:go-rest 4}
+             :close-heroes]]
+    :stop  [:open-heroes
+            :rest-all
+            :close-heroes]}
+   {:id 5
+    :start [[:open-heroes
+             :run-all
+             :close-heroes]
+            [:open-heroes
+             :run-all
+             :next-page
+             {:go-rest 4}
+             :close-heroes]]
+    :stop  [:open-heroes
+            :rest-all
+            :close-heroes]}
+   {:id 6
+    :start [[:open-heroes
+             :run-all
+             :close-heroes]
+            [:open-heroes
+             :run-all
+             {:go-rest 1}
+             {:go-rest 4}
+             :next-page
+             :next-page
+             {:go-rest 2}
+             :close-heroes]]
+    :stop  [:open-heroes
+            :rest-all
+            :close-heroes]}
+   {:id 7
+    :start [[:open-heroes
+             :run-all
+             :close-heroes]
+            [:open-heroes
+             :run-all
+             :next-page
+             {:go-rest 5}
+             :next-page
+             {:go-rest 4}
+             :close-heroes]]
+    :stop  [:open-heroes
+            :rest-all
+            :close-heroes]}
 
-(def account-3
-  {:id 3
-   :start [[:open-heroes
-            :run-all
-            :close-heroes]
-           [:open-heroes
-            :run-all
-            :next-page
-            {:go-rest 2}
-            {:go-rest 5}
-            :close-heroes]]
-   :stop  [:open-heroes
-           :rest-all
-           :close-heroes]})
-
-(def account-4
-  {:id 4
-   :start [[:open-heroes
-            :run-all
-            :close-heroes]
-           [:open-heroes
-            :run-all
-            {:go-rest 2}
-            {:go-rest 2}
-            {:go-rest 3}
-            {:go-rest 4}
-            {:go-rest 4}
-            :next-page
-            {:go-rest 2}
-            :close-heroes]]
-   :stop  [:open-heroes
-           :rest-all
-           :close-heroes]})
-
-(def account-5
-  {:id 5
-   :start [[:open-heroes
-            :run-all
-            :close-heroes]
-           [:open-heroes
-            :run-all
-            :next-page
-            {:go-rest 4}
-            :close-heroes]]
-   :stop  [:open-heroes
-           :rest-all
-           :close-heroes]})
-
-(def account-6
-  {:id 6
-   :start [[:open-heroes
-            :run-all
-            :close-heroes]
-           [:open-heroes
-            :run-all
-            {:go-rest 1}
-            {:go-rest 4}
-            :next-page
-            :next-page
-            {:go-rest 2}
-            :close-heroes]]
-   :stop  [:open-heroes
-           :rest-all
-           :close-heroes]})
-
-(def account-7
-  {:id 7
-   :start [[:open-heroes
-            :run-all
-            :close-heroes]
-           [:open-heroes
-            :run-all
-            :next-page
-            {:go-rest 5}
-            :next-page
-            {:go-rest 4}
-            :close-heroes]]
-   :stop  [:open-heroes
-           :rest-all
-           :close-heroes]})
-
-(def account-8
-  {:id 8
-   :start [[:open-heroes
-            :run-all
-            :close-heroes]
-           [:open-heroes
-            :run-all
-            :next-page
-            {:go-rest 1}
-            :next-page
-            {:go-rest 4}
-            :close-heroes]]
-   :stop  [:open-heroes
-           :rest-all
-           :close-heroes]})
-
-(def account-9
-  {:id 9
-   :start [[:open-heroes
-            :run-all
-            :close-heroes]
-           [:open-heroes
-            :run-all
-            :next-page
-            {:go-rest 5}
-            :next-page
-            {:go-rest 4}
-            :close-heroes]]
-   :stop  [:open-heroes
-           :rest-all
-           :close-heroes]})
-
-(def account-10
-  {:id 10
-   :start [[:open-heroes
-            :run-all
-            :close-heroes]
-           [:open-heroes
-            :run-all
-            :next-page
-            :next-page
-            {:go-rest 5}
-            :close-heroes]]
-   :stop  [:open-heroes
-           :rest-all
-           :close-heroes]})
+   {:id 8
+    :start [[:open-heroes
+             :run-all
+             :close-heroes]
+            [:open-heroes
+             :run-all
+             :next-page
+             :next-page
+             {:go-rest 5}
+             :close-heroes]]
+    :stop  [:open-heroes
+            :rest-all
+            :close-heroes]}
+   {:id 9
+    :start [[:open-heroes
+             :run-all
+             :close-heroes]
+            [:open-heroes
+             :run-all
+             :next-page
+             {:go-rest 5}
+             :next-page
+             {:go-rest 4}
+             :close-heroes]]
+    :stop  [:open-heroes
+            :rest-all
+            :close-heroes]}
+   {:id 10
+    :start [[:open-heroes
+             :run-all
+             :close-heroes]
+            [:open-heroes
+             :run-all
+             :next-page
+             :next-page
+             {:go-rest 5}
+             :close-heroes]]
+    :stop  [:open-heroes
+            :rest-all
+            :close-heroes]}])
 
 (defn- run-steps [steps browser-id account-id]
   (println account-id " - running heroes on the browser with id:" browser-id)
@@ -193,7 +184,7 @@
         (= s :run-all) (screen/run-all-heroes browser-id)
         (= s :rest-all) (screen/rest-all-heroes browser-id)
         (= s :next-page) (do (screen/move-to-hero browser-id 1)
-                              (screen/next-page-of-heroes))))))
+                             (screen/next-page-of-heroes))))))
 
 (defn- is-time-to-stop-an-account? [{account-id :id stop :stop} n-time]
   (let [browser-id (browser/get-browser-id account-id)]
@@ -204,92 +195,92 @@
 (defn- account1-start [cycle]
   (let [browser-id (browser/get-browser-id 1)
         hero-id 1
-        total-start (count (:start account-1))
+        total-start (count (:start (accounts-config 0)))
         start-index (cycle->start-index cycle total-start)]
     (cond
-      (= start-index 0) (run-steps (get (:start account-1) 0) browser-id hero-id)
-      (= start-index 1) (run-steps (get (:start account-1) 1) browser-id hero-id))))
+      (= start-index 0) (run-steps (get (:start (accounts-config 0)) 0) browser-id hero-id)
+      (= start-index 1) (run-steps (get (:start (accounts-config 0)) 1) browser-id hero-id))))
 
 (defn- account2-start [cycle]
   (let [browser-id (browser/get-browser-id 2)
         hero-id 2
-        total-start (count (:start account-2))
+        total-start (count (:start (accounts-config 1)))
         start-index (cycle->start-index cycle total-start)]
     (cond
-      (= start-index 0) (run-steps (get (:start account-2) 0) browser-id hero-id)
-      (= start-index 1) (run-steps (get (:start account-2) 1) browser-id hero-id))))
+      (= start-index 0) (run-steps (get (:start (accounts-config 1)) 0) browser-id hero-id)
+      (= start-index 1) (run-steps (get (:start (accounts-config 1)) 1) browser-id hero-id))))
 
 (defn- account3-start [cycle]
   (let [browser-id (browser/get-browser-id 3)
         hero-id 3
-        total-start (count (:start account-3))
+        total-start (count (:start (accounts-config 2)))
         start-index (cycle->start-index cycle total-start)]
     (cond
-      (= start-index 0) (run-steps (get (:start account-3) 0) browser-id hero-id)
-      (= start-index 1) (run-steps (get (:start account-3) 1) browser-id hero-id))))
+      (= start-index 0) (run-steps (get (:start (accounts-config 2)) 0) browser-id hero-id)
+      (= start-index 1) (run-steps (get (:start (accounts-config 2)) 1) browser-id hero-id))))
 
 (defn- account4-start [cycle]
   (let [browser-id (browser/get-browser-id 4)
         hero-id 4
-        total-start (count (:start account-4))
+        total-start (count (:start (accounts-config 3)))
         start-index (cycle->start-index cycle total-start)]
     (cond
-      (= start-index 0) (run-steps (get (:start account-4) 0) browser-id hero-id)
-      (= start-index 1) (run-steps (get (:start account-4) 1) browser-id hero-id))))
+      (= start-index 0) (run-steps (get (:start (accounts-config 3)) 0) browser-id hero-id)
+      (= start-index 1) (run-steps (get (:start (accounts-config 3)) 1) browser-id hero-id))))
 
 (defn- account5-start [cycle]
   (let [browser-id (browser/get-browser-id 5)
         hero-id 5
-        total-start (count (:start account-5))
+        total-start (count (:start (accounts-config 4)))
         start-index (cycle->start-index cycle total-start)]
     (cond
-      (= start-index 0) (run-steps (get (:start account-5) 0) browser-id hero-id)
-      (= start-index 1) (run-steps (get (:start account-5) 1) browser-id hero-id))))
+      (= start-index 0) (run-steps (get (:start (accounts-config 4)) 0) browser-id hero-id)
+      (= start-index 1) (run-steps (get (:start (accounts-config 4)) 1) browser-id hero-id))))
 
 (defn- account6-start [cycle]
   (let [browser-id (browser/get-browser-id 6)
         hero-id 6
-        total-start (count (:start account-6))
+        total-start (count (:start (accounts-config 5)))
         start-index (cycle->start-index cycle total-start)]
     (cond
-      (= start-index 0) (run-steps (get (:start account-6) 0) browser-id hero-id)
-      (= start-index 1) (run-steps (get (:start account-6) 1) browser-id hero-id))))
+      (= start-index 0) (run-steps (get (:start (accounts-config 5)) 0) browser-id hero-id)
+      (= start-index 1) (run-steps (get (:start (accounts-config 5)) 1) browser-id hero-id))))
 
 (defn- account7-start [cycle]
   (let [browser-id (browser/get-browser-id 7)
         hero-id 7
-        total-start (count (:start account-7))
+        total-start (count (:start (accounts-config 6)))
         start-index (cycle->start-index cycle total-start)]
     (cond
-      (= start-index 0) (run-steps (get (:start account-7) 0) browser-id hero-id)
-      (= start-index 1) (run-steps (get (:start account-7) 1) browser-id hero-id))))
+      (= start-index 0) (run-steps (get (:start (accounts-config 6)) 0) browser-id hero-id)
+      (= start-index 1) (run-steps (get (:start (accounts-config 6)) 1) browser-id hero-id))))
 
 (defn- account8-start [cycle]
   (let [browser-id (browser/get-browser-id 8)
         hero-id 8
-        total-start (count (:start account-8))
+        total-start (count (:start (accounts-config 7)))
         start-index (cycle->start-index cycle total-start)]
     (cond
-      (= start-index 0) (run-steps (get (:start account-8) 0) browser-id hero-id)
-      (= start-index 1) (run-steps (get (:start account-8) 1) browser-id hero-id))))
+      (= start-index 0) (run-steps (get (:start (accounts-config 7)) 0) browser-id hero-id)
+      (= start-index 1) (run-steps (get (:start (accounts-config 7)) 1) browser-id hero-id))))
 
 (defn- account9-start [cycle]
   (let [browser-id (browser/get-browser-id 9)
         hero-id 9
-        total-start (count (:start account-9))
+        total-start (count (:start (accounts-config 8)))
         start-index (cycle->start-index cycle total-start)]
     (cond
-      (= start-index 0) (run-steps (get (:start account-9) 0) browser-id hero-id)
-      (= start-index 1) (run-steps (get (:start account-9) 1) browser-id hero-id))))
+      (= start-index 0) (run-steps (get (:start (accounts-config 8)) 0) browser-id hero-id)
+      (= start-index 1) (run-steps (get (:start (accounts-config 8)) 1) browser-id hero-id))))
 
 (defn- account10-start [cycle]
   (let [browser-id (browser/get-browser-id 10)
         hero-id 10
-        total-start (count (:start account-10))
+        total-start (count (:start (accounts-config 9)))
         start-index (cycle->start-index cycle total-start)]
     (cond
-      (= start-index 0) (run-steps (get (:start account-10) 0) browser-id hero-id)
-      (= start-index 1) (run-steps (get (:start account-10) 1) browser-id hero-id))))
+      (= start-index 0) (run-steps (get (:start (accounts-config 9)) 0) browser-id hero-id)
+      (= start-index 1) (run-steps (get (:start (accounts-config 9)) 1) browser-id hero-id))))
 
 (defn all-accounts-go-menu-treasure-hunt []
   (println "All heroes need to go to the menu and go back to the treasure hunt.")
@@ -324,14 +315,14 @@
     (screen/close-heroes-popup browser-id)))
 
 (defn is-time-to-stop? [n-time]
-  (is-time-to-stop-an-account? account-1 n-time)
-  (is-time-to-stop-an-account? account-2 n-time)
-  (is-time-to-stop-an-account? account-3 n-time)
-  (is-time-to-stop-an-account? account-4 n-time)
-  (is-time-to-stop-an-account? account-5 n-time)
-  (is-time-to-stop-an-account? account-6 n-time)
-  (is-time-to-stop-an-account? account-7 n-time)
-  (is-time-to-stop-an-account? account-8 n-time)
-  (is-time-to-stop-an-account? account-9 n-time)
-  (is-time-to-stop-an-account? account-10 n-time))
+  (is-time-to-stop-an-account? (accounts-config 0) n-time)
+  (is-time-to-stop-an-account? (accounts-config 1) n-time)
+  (is-time-to-stop-an-account? (accounts-config 2) n-time)
+  (is-time-to-stop-an-account? (accounts-config 3) n-time)
+  (is-time-to-stop-an-account? (accounts-config 4) n-time)
+  (is-time-to-stop-an-account? (accounts-config 5) n-time)
+  (is-time-to-stop-an-account? (accounts-config 6) n-time)
+  (is-time-to-stop-an-account? (accounts-config 7) n-time)
+  (is-time-to-stop-an-account? (accounts-config 8) n-time)
+  (is-time-to-stop-an-account? (accounts-config 9) n-time))
 
