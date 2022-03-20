@@ -5,5 +5,5 @@
 (defn load-all-browser-ids []
   (sort (string/split-lines (:out (shell/sh "sh" "-c" "xdotool search -name 'Bombcrypto - Google Chrome'")))))
 
-(defn get-browser-id [browser-id]
-  (nth (load-all-browser-ids) (dec browser-id)))
+(defn get-browser-id [account-id]
+  (nth (load-all-browser-ids) (dec account-id)))

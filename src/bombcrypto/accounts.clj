@@ -186,12 +186,6 @@
         (= s :next-page) (do (screen/move-to-hero browser-id 1)
                              (screen/next-page-of-heroes))))))
 
-(defn- is-time-to-stop-an-account? [{account-id :id stop :stop} n-time]
-  (let [browser-id (browser/get-browser-id account-id)]
-    (when (= n-time n-time-to-stop)
-      (println account-id "- Time to rest/go home" n-time)
-      (run-steps stop browser-id account-id))))
-
 (defn- account1-start [cycle]
   (let [browser-id (browser/get-browser-id 1)
         hero-id 1
@@ -315,14 +309,11 @@
     (screen/close-heroes-popup browser-id)))
 
 (defn is-time-to-stop? [n-time]
-  (is-time-to-stop-an-account? (accounts-config 0) n-time)
-  (is-time-to-stop-an-account? (accounts-config 1) n-time)
-  (is-time-to-stop-an-account? (accounts-config 2) n-time)
-  (is-time-to-stop-an-account? (accounts-config 3) n-time)
-  (is-time-to-stop-an-account? (accounts-config 4) n-time)
-  (is-time-to-stop-an-account? (accounts-config 5) n-time)
-  (is-time-to-stop-an-account? (accounts-config 6) n-time)
-  (is-time-to-stop-an-account? (accounts-config 7) n-time)
-  (is-time-to-stop-an-account? (accounts-config 8) n-time)
-  (is-time-to-stop-an-account? (accounts-config 9) n-time))
+  (doseq [ac accounts-config]
+    (let [account-id (:id ac)
+          browser-id (browser/get-browser-id account-id)
+          stop-step (:stop ac)]
+      (when (= n-time n-time-to-stop)
+        (println account-id "- Time to rest/go home" n-time)
+        (run-steps stop-step browser-id account-id)))))
 
