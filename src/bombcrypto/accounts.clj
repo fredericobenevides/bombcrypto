@@ -105,8 +105,9 @@
             [:open-heroes
              :run-all
              {:go-rest 1}
-             {:go-rest 4}
+             {:go-rest 3}
              :next-page
+             {:go-rest 2}
              :next-page
              {:go-rest 2}
              :close-heroes]]
@@ -186,96 +187,6 @@
         (= s :next-page) (do (screen/move-to-hero browser-id 1)
                              (screen/next-page-of-heroes))))))
 
-(defn- account1-start [cycle]
-  (let [browser-id (browser/get-browser-id 1)
-        hero-id 1
-        total-start (count (:start (accounts-config 0)))
-        start-index (cycle->start-index cycle total-start)]
-    (cond
-      (= start-index 0) (run-steps (get (:start (accounts-config 0)) 0) browser-id hero-id)
-      (= start-index 1) (run-steps (get (:start (accounts-config 0)) 1) browser-id hero-id))))
-
-(defn- account2-start [cycle]
-  (let [browser-id (browser/get-browser-id 2)
-        hero-id 2
-        total-start (count (:start (accounts-config 1)))
-        start-index (cycle->start-index cycle total-start)]
-    (cond
-      (= start-index 0) (run-steps (get (:start (accounts-config 1)) 0) browser-id hero-id)
-      (= start-index 1) (run-steps (get (:start (accounts-config 1)) 1) browser-id hero-id))))
-
-(defn- account3-start [cycle]
-  (let [browser-id (browser/get-browser-id 3)
-        hero-id 3
-        total-start (count (:start (accounts-config 2)))
-        start-index (cycle->start-index cycle total-start)]
-    (cond
-      (= start-index 0) (run-steps (get (:start (accounts-config 2)) 0) browser-id hero-id)
-      (= start-index 1) (run-steps (get (:start (accounts-config 2)) 1) browser-id hero-id))))
-
-(defn- account4-start [cycle]
-  (let [browser-id (browser/get-browser-id 4)
-        hero-id 4
-        total-start (count (:start (accounts-config 3)))
-        start-index (cycle->start-index cycle total-start)]
-    (cond
-      (= start-index 0) (run-steps (get (:start (accounts-config 3)) 0) browser-id hero-id)
-      (= start-index 1) (run-steps (get (:start (accounts-config 3)) 1) browser-id hero-id))))
-
-(defn- account5-start [cycle]
-  (let [browser-id (browser/get-browser-id 5)
-        hero-id 5
-        total-start (count (:start (accounts-config 4)))
-        start-index (cycle->start-index cycle total-start)]
-    (cond
-      (= start-index 0) (run-steps (get (:start (accounts-config 4)) 0) browser-id hero-id)
-      (= start-index 1) (run-steps (get (:start (accounts-config 4)) 1) browser-id hero-id))))
-
-(defn- account6-start [cycle]
-  (let [browser-id (browser/get-browser-id 6)
-        hero-id 6
-        total-start (count (:start (accounts-config 5)))
-        start-index (cycle->start-index cycle total-start)]
-    (cond
-      (= start-index 0) (run-steps (get (:start (accounts-config 5)) 0) browser-id hero-id)
-      (= start-index 1) (run-steps (get (:start (accounts-config 5)) 1) browser-id hero-id))))
-
-(defn- account7-start [cycle]
-  (let [browser-id (browser/get-browser-id 7)
-        hero-id 7
-        total-start (count (:start (accounts-config 6)))
-        start-index (cycle->start-index cycle total-start)]
-    (cond
-      (= start-index 0) (run-steps (get (:start (accounts-config 6)) 0) browser-id hero-id)
-      (= start-index 1) (run-steps (get (:start (accounts-config 6)) 1) browser-id hero-id))))
-
-(defn- account8-start [cycle]
-  (let [browser-id (browser/get-browser-id 8)
-        hero-id 8
-        total-start (count (:start (accounts-config 7)))
-        start-index (cycle->start-index cycle total-start)]
-    (cond
-      (= start-index 0) (run-steps (get (:start (accounts-config 7)) 0) browser-id hero-id)
-      (= start-index 1) (run-steps (get (:start (accounts-config 7)) 1) browser-id hero-id))))
-
-(defn- account9-start [cycle]
-  (let [browser-id (browser/get-browser-id 9)
-        hero-id 9
-        total-start (count (:start (accounts-config 8)))
-        start-index (cycle->start-index cycle total-start)]
-    (cond
-      (= start-index 0) (run-steps (get (:start (accounts-config 8)) 0) browser-id hero-id)
-      (= start-index 1) (run-steps (get (:start (accounts-config 8)) 1) browser-id hero-id))))
-
-(defn- account10-start [cycle]
-  (let [browser-id (browser/get-browser-id 10)
-        hero-id 10
-        total-start (count (:start (accounts-config 9)))
-        start-index (cycle->start-index cycle total-start)]
-    (cond
-      (= start-index 0) (run-steps (get (:start (accounts-config 9)) 0) browser-id hero-id)
-      (= start-index 1) (run-steps (get (:start (accounts-config 9)) 1) browser-id hero-id))))
-
 (defn all-accounts-go-menu-treasure-hunt []
   (println "All heroes need to go to the menu and go back to the treasure hunt.")
   (doseq [browser-id (browser/load-all-browser-ids)]
@@ -291,16 +202,13 @@
     (screen/close-chest browser-id)))
 
 (defn start-all-accounts [cycle]
-  (account1-start cycle)
-  (account2-start cycle)
-  (account3-start cycle)
-  (account4-start cycle)
-  (account5-start cycle)
-  (account6-start cycle)
-  (account7-start cycle)
-  (account8-start cycle)
-  (account9-start cycle)
-  (account10-start cycle))
+  (doseq [ac accounts-config]
+    (let [account-id (:id ac)
+          browser-id (browser/get-browser-id account-id)
+          count-start (count (:start ac))
+          start-index (cycle->start-index cycle count-start)
+          start-step ((:start ac) start-index)]
+      (run-steps start-step browser-id account-id))))
 
 (defn stop-all-accounts []
   (doseq [browser-id (browser/load-all-browser-ids)]
