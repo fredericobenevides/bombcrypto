@@ -7,7 +7,12 @@
   (Thread/sleep 800))
 
 (defn move-to [id x y]
-  (shell/sh "sh" "-c" (str "xdotool mousemove --sync --window " id " " x " " y)))
+  ;; loop 2 times to avoid delay issue with xdotool when its using the same location
+  (loop [n -1]
+    (when (< n 1)
+      (let [x2 (+ x n)]
+        (shell/sh "sh" "-c" (str "xdotool mousemove --sync --window " id " " x2 " " y))
+        (recur (inc n))))))
 
 (defn move-to-and-click [id x y]
   (move-to id x y)
