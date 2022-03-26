@@ -25,25 +25,38 @@
    {:id 2
     :start [[:open-heroes
              :run-all
-             {:go-home 3} ;; 539
+             {:go-home 5} ;; 249
              :next-page
              {:go-home 2} ;; 254
-             {:go-home 5} ;; 384
-             :next-page
-             {:go-home 2} ;; 662
+             {:go-home 2} ;; 256
+             {:go-home 2} ;; 115
+             {:go-home 4} ;; 305
+             {:go-home 4} ;; 662
+             {:go-home 4} ;; 710 
              :close-heroes]
             [:open-heroes
              :run-all
              {:go-home 1} ;; 564
              {:go-home 1} ;; 434
-             {:go-rest 2} ;; 411
-             {:go-home 3} ;; 694
-             {:go-rest 3} ;; 253
-             {:go-rest 5} ;; 115
+             {:go-home 1} ;; 539 *
+             {:go-home 1} ;; 411 *
+             {:go-home 2} ;; 694
+             {:go-home 2} ;; 253 *
              {:go-home 5} ;; 550
-             :next-page
-             {:go-rest 3} ;;  710
-             :close-heroes]]
+             {:go-home 5} ;; 384 *
+             :close-heroes]
+            [:open-heroes
+             :run-all
+             {:go-home 1} ;; 564
+             {:go-home 1} ;; 434
+             {:go-home 3} ;; 249
+             {:go-home 3} ;; 694
+             {:go-home 4} ;; 254
+             {:go-home 5} ;; 115
+             {:go-home 5} ;; 550
+             {:go-home 5} ;; 384 
+             :close-heroes]
+            [:skip]]
     :stop  [:open-heroes
             :run-all
             :rest-all
@@ -185,7 +198,8 @@
         (= s :run-all) (screen/run-all-heroes browser-id)
         (= s :rest-all) (screen/rest-all-heroes browser-id)
         (= s :next-page) (do (screen/move-to-hero browser-id 1)
-                             (screen/next-page-of-heroes))))))
+                             (screen/next-page-of-heroes))
+        :else :do-nothing))))
 
 (defn all-accounts-go-menu-treasure-hunt []
   (println "All heroes need to go to the menu and go back to the treasure hunt.")
@@ -208,7 +222,18 @@
           count-start (count (:start ac))
           start-index (cycle->start-index cycle count-start)
           start-step ((:start ac) start-index)]
-      (run-steps start-step browser-id account-id))))
+      (when-not (= account-id 2)
+        (run-steps start-step browser-id account-id)))))
+
+(defn start-account-2 [cycle]
+  (let [ac (accounts-config 1)
+        account-id (:id ac)
+        browser-id (browser/get-browser-id account-id)
+        count-start (count (:start ac))
+        start-index (cycle->start-index cycle count-start)
+        start-step ((:start ac) start-index)]
+    (println "Account 2 is running the start with index " start-index)
+    (run-steps start-step browser-id account-id)))
 
 (defn stop-all-accounts []
   (doseq [browser-id (browser/load-all-browser-ids)]
@@ -221,7 +246,8 @@
     (let [account-id (:id ac)
           browser-id (browser/get-browser-id account-id)
           stop-step (:stop ac)]
-      (when (= n-time n-time-to-stop)
-        (println account-id "- Time to rest/go home" n-time)
-        (run-steps stop-step browser-id account-id)))))
+      (when-not (= account-id 2)
+        (when (= n-time n-time-to-stop)
+          (println account-id "- Time to rest/go home" n-time)
+          (run-steps stop-step browser-id account-id))))))
 
