@@ -1,38 +1,101 @@
 (ns bombcrypto.main
   (:require [bombcrypto.accounts :as accounts]
             [bombcrypto.mouse :as mouse]
-            [bombcrypto.time :as time]))
+            [bombcrypto.time :as t]))
 
-(def current-cycle (atom 0))
+(def schedules
+  (atom {:accounts
+         [{:id 1  :time (t/now) :step 0}
+          {:id 2  :time (t/now) :step 0}
+          {:id 3  :time (t/now) :step 0}
+          {:id 4  :time (t/now) :step 0}
+          {:id 5  :time (t/now) :step 0}
+          {:id 6  :time (t/now) :step 0}
+          {:id 7  :time (t/now) :step 0}
+          {:id 8  :time (t/now) :step 0}
+          {:id 9  :time (t/now) :step 0}
+          {:id 10 :time (t/now) :step 0}]
+         :open-chest (t/plus-minutes (t/now) 5)}))
 
-(def cycle-account-2 (atom 0))
+(defn get-schedule-account [account-id]
+  (let [account-index (dec account-id)
+        accounts (:accounts @schedules)
+        account (accounts account-index)]
+    {:index account-index :account account}))
 
-(defn run []
-  (while true
-    (println "\n******** Starting to run bombcrypto. Cycle:" @current-cycle (time/now-with-format) "********\n")
+(defn update-sched-account-to-next-step! [account-id]
+  (let [account-data (get-schedule-account account-id)
+        account-index (:index account-data)
+        account (:account account-data)
+        step-next-index (inc (:step account))
+        step-init-index 0]
+    (if (accounts/get-step account-id step-next-index)
+      (swap! schedules update-in [:accounts] assoc-in [account-index :step] step-next-index)
+      (swap! schedules update-in [:accounts] assoc-in [account-index :step] step-init-index))))
 
-    ;; let me know that the mouse is going to be used before accessing the heroes
+(defn update-sched-account-time! [account-id]
+  (let [account-data (get-schedule-account account-id)
+        account-index (:index account-data)
+        account (:account account-data)
+        sched-step (:step account)
+        sched-time (:time account)
+        account-step (accounts/get-step account-id sched-step)
+        account-time (:time account-step)]
+    (swap! schedules update-in [:accounts] assoc-in [account-index :time] (t/plus-minutes sched-time account-time))))
+
+(defn update-sched-time-open-chest! []
+  (let [current-time (:open-chest @schedules)]
+    (swap! schedules assoc :open-chest (t/plus-minutes current-time 5))))
+
+(defn log [text]
+  (println (t/now-with-format) "=> " text))
+
+(defn menu []
+  (println "\n******************************************************")
+  (println "Current time:" (t/now-with-format))
+  (doseq [accounts (:accounts @schedules)]
+    (let [id (:id accounts)
+          time (t/format-time (:time accounts))
+          step (:step accounts)]
+      (println (str "Account-" id " => exec time: " time " Step: " step))))
+  (println "Open chest => exec time:" (t/format-time (:open-chest @schedules)))
+  (println "******************************************************\n"))
+
+(defn run-open-and-close-chest []
+  (when (t/is-gte? (t/now) (:open-chest @schedules))
+    (log "Open and close chest: Executing for all accounts")
     (mouse/move-mouse-around)
+    (accounts/all-accounts-open-close-chest)
+    (log "Open and close chest: Updating the time for next execution")
+    (update-sched-time-open-chest!)))
 
-    (accounts/start-all-accounts @current-cycle)
+(defn load-accounts-to-run [schedules]
+  (for [accounts (:accounts schedules)
+        :let [account-id (:id accounts)
+              time (:time accounts)
+              step (:step accounts)]
+        :when (t/is-gte? (t/now) time)]
+    (do
+      (log (str "Account-" account-id ": is ready to be run"))
+      {:account-id account-id :step-index step})))
 
-    (dotimes [n 18]
-      (when (even? n)
-        (println "starting/changing account 2. Cycle" @cycle-account-2)
-        (accounts/start-account-2 @cycle-account-2)
-        (swap! cycle-account-2 inc))
-      
-      (println "Waiting for 5 minutes before going to the menu. n is" n (time/now-with-format))
-      (Thread/sleep (* 1000 60 5))
-      (println "Finished waiting." (time/now-with-format))
+(defn run-accounts! [accounts-data]
+  (when (seq accounts-data)
+    (mouse/move-mouse-around)
+    (doseq [{:keys [account-id step-index]} accounts-data]
+      (log (str "Account-" account-id ": running account with step: " step-index))
+      (accounts/start-account account-id step-index)
 
-      (mouse/move-mouse-around)
-
-      (accounts/is-time-to-stop? n)
-      (accounts/all-accounts-open-close-chest))
-
-    ;; update the iteration for the next cycle
-    (swap! current-cycle inc)))
+      (log (str "Account-" account-id ": updating next step and next time"))
+      (update-sched-account-to-next-step! account-id)
+      (update-sched-account-time! account-id))))
 
 (defn -main []
-  (run))
+  (while true
+    (menu)
+
+    (run-open-and-close-chest)
+    (run-accounts! (load-accounts-to-run @schedules))
+
+    (Thread/sleep (* 1000 60))))
+

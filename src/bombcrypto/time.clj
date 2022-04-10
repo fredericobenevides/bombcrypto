@@ -13,7 +13,7 @@
 (defn plus-minutes [time minutes]
   (.plusMinutes time minutes))
 
-(defn is-gte [t1 t2]
+(defn is-gte? [t1 t2]
   (let [c (.compareTo t1 t2)]
     (cond
       (> c 0) true

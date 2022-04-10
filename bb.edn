@@ -1,3 +1,4 @@
 {:paths ["src"]
  :tasks
- {run (shell "bb -m bombcrypto.main")}}
+ {run (shell "bb -m bombcrypto.main")
+  test (shell "./test-runner.clj")}}
