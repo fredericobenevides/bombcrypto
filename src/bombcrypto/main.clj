@@ -5,16 +5,16 @@
 
 (def schedules
   (atom {:accounts
-         [{:id 1  :time (t/now) :step 0}
-          {:id 2  :time (t/now) :step 0}
-          {:id 3  :time (t/now) :step 0}
-          {:id 4  :time (t/now) :step 0}
-          {:id 5  :time (t/now) :step 0}
-          {:id 6  :time (t/now) :step 0}
-          {:id 7  :time (t/now) :step 0}
-          {:id 8  :time (t/now) :step 0}
-          {:id 9  :time (t/now) :step 0}
-          {:id 10 :time (t/now) :step 0}]
+         [{:id 1  :time (t/now) :step 0 :enabled true}
+          {:id 2  :time (t/now) :step 0 :enabled true}
+          {:id 3  :time (t/now) :step 0 :enabled true}
+          {:id 4  :time (t/now) :step 0 :enabled true}
+          {:id 5  :time (t/now) :step 0 :enabled true}
+          {:id 6  :time (t/now) :step 0 :enabled true}
+          {:id 7  :time (t/now) :step 0 :enabled true}
+          {:id 8  :time (t/now) :step 0 :enabled true}
+          {:id 9  :time (t/now) :step 0 :enabled true}
+          {:id 10 :time (t/now) :step 0 :enabled true}]
          :open-chest (t/plus-minutes (t/now) 5)}))
 
 (defn get-schedule-account [account-id]
@@ -56,8 +56,10 @@
   (doseq [accounts (:accounts @schedules)]
     (let [id (:id accounts)
           time (t/format-time (:time accounts))
-          step (:step accounts)]
-      (println (str "Account-" id " => exec time: " time " Step: " step))))
+          step (:step accounts)
+          enabled (:enabled accounts)]
+      (when enabled
+        (println (str "Account-" id " => exec time: " time " Step: " step)))))
   (println "Open chest => exec time:" (t/format-time (:open-chest @schedules)))
   (println "******************************************************\n"))
 
@@ -73,8 +75,9 @@
   (for [accounts (:accounts schedules)
         :let [account-id (:id accounts)
               time (:time accounts)
-              step (:step accounts)]
-        :when (t/is-gte? (t/now) time)]
+              step (:step accounts)
+              enabled (:enabled accounts)]
+        :when (and (t/is-gte? (t/now) time) enabled)]
     (do
       (log (str "Account-" account-id ": is ready to be run"))
       {:account-id account-id :step-index step})))

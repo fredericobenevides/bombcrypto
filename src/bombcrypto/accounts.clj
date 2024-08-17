@@ -30,47 +30,61 @@
                     :close-heroes]}]}
    {:id 2
     :steps [{:desc "Step 1"
-             :time 20
+             :time 25
              :step [:open-heroes
                     :run-all
-                    {:go-home 5} ;; 249
+                    {:go-home 3} ;; 539
+                    {:go-home 3} ;; 411
+                    {:go-home 4} ;; 253
+                    {:go-home 4} ;; 254
                     :next-page
-                    {:go-home 2} ;; 254
-                    {:go-home 2} ;; 256
-                    {:go-home 2} ;; 115
-                    {:go-home 4} ;; 305
-                    {:go-home 4} ;; 662
-                    {:go-home 4} ;; 710 
+                    {:go-home 1} ;; 662
+                    {:go-home 1} ;; 710
+                    {:go-home 2} ;; 479
+                    {:go-home 2} ;; 659
                     :close-heroes]}
             {:desc "Step 2"
-             :time 20
+             :time 25
              :step [:open-heroes
                     :run-all
                     {:go-home 1} ;; 564
                     {:go-home 1} ;; 434
-                    {:go-home 1} ;; 539 *
-                    {:go-home 1} ;; 411 *
-                    {:go-home 2} ;; 694
-                    {:go-home 2} ;; 253 *
-                    {:go-home 5} ;; 550
-                    {:go-home 5} ;; 384 *
+                    {:go-home 3} ;; 694
+                    :next-page
+                    {:go-home 1} ;; 384
+                    {:go-home 3} ;; 478
+                    {:go-home 4} ;; 663
                     :close-heroes]}
             {:desc "Step 3"
-             :time 20
+             :time 25
              :step [:open-heroes
                     :run-all
                     {:go-home 1} ;; 564
                     {:go-home 1} ;; 434
-                    {:go-home 3} ;; 249
-                    {:go-home 3} ;; 694
-                    {:go-home 4} ;; 254
-                    {:go-home 5} ;; 115
-                    {:go-home 5} ;; 550
-                    {:go-home 5} ;; 384 
+                    {:go-home 2} ;; 411
+                    {:go-home 2} ;; 694
+                    {:go-home 2} ;; 253
+                    {:go-home 3} ;; 550
+                    {:go-home 4} ;; 662
+                    :next-page
+                    {:go-home 1} ;; 479
                     :close-heroes]}
-            {:desc "Step 4 - skip"
-             :time 20
-             :step [:skip]}]}
+            {:desc "Step 4"
+             :time 25
+             :step [:open-heroes
+                    :run-all
+                    {:go-home 1} ;; 564
+                    {:go-home 1} ;; 434
+                    {:go-rest 1} ;; 539
+                    {:go-home 2} ;; 694
+                    {:go-home 3} ;; 254
+                    {:go-home 3} ;; 550
+                    {:go-home 3} ;; 384
+                    {:go-rest 4} ;; 710
+                    {:go-home 4} ;; 478
+                    {:go-rest 5} ;; 659
+                    {:go-home 5} ;; 663
+                    :close-heroes]}]}
    {:id 3
     :steps [{:desc "Step 1"
              :time 60
